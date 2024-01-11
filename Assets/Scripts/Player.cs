@@ -18,7 +18,10 @@ public class Player : MonoBehaviour
     public GameObject AttackPoint;
     [SerializeField]
     public GameObject bulletPrefab;
+
     GameObject nearestNPC;
+
+    bool isEnabled = true;
 
     public Vector2 movement;
 
@@ -32,8 +35,6 @@ public class Player : MonoBehaviour
     public float jumpStrength = 750;
     public float walkingSpeed = 4f;
     public float sprintingSpeed = 7f;
-    
-    bool isEnabled = true;
 
     bool isSprinting = false;
 
@@ -42,7 +43,6 @@ public class Player : MonoBehaviour
     void Start()
     {
         currentlyHoldingWeapon = new Sword("Longsword", 20, 5f, 5f, 2f);
-
     }
 
     void Update()
@@ -95,14 +95,15 @@ public class Player : MonoBehaviour
         isSprinting = false;
         animator.SetBool("isSprinting", false);
     }
-    public void talkingWithNPC()
+    public void startTalkingWithNPC() //nachdem man E gedrückt hast
     {
-        if (isTalkable)
-        {
-            animator.SetBool("isAnswering", true);
-            NPC npcscript = nearestNPC.GetComponent<NPC>();
-            npcscript.animate();
-        }
+         animator.SetBool("isAnswering", true);
+         nearestNPC.GetComponent<NPC>().startTalkingAnimation();
+         nearestNPC.GetComponent<NPC>().action();
+    }
+    public void stopTalkingWithNPC() //wenn man weggeht
+    {
+        animator.SetBool("isAnswering", false);
     }
     public void changeWeapon()
     {
@@ -116,35 +117,28 @@ public class Player : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)  //für GameObject mit LAYERN
     {
-        nearestNPC = collision.gameObject;
-        if(collision.gameObject.layer == 8)
+        if(collision.gameObject.layer == 8) //NPC
         {
+            nearestNPC = collision.gameObject;
             isTalkable = true;
         }
-
-        if (collision.gameObject.tag == "Sign")
-        {
-            collision.GetComponent<Sign>().showDialogText();
-            Debug.Log("KOLISION");
-        }
     }
 
-    private void OnTriggerExit2D(Collider2D collision)
+    private void OnTriggerExit2D(Collider2D collision) //für GameObject mit LAYERN
     {
-        if (collision.gameObject.layer == 8)
+        if (collision.gameObject.layer == 8) //NPCs
         {
-            NPC npcscript = nearestNPC.GetComponent<NPC>();
-            npcscript.animator.SetBool("isTalking", false);
-            isTalkable = false;
-            animator.SetBool("isAnswering", false);
+            nearestNPC.GetComponent<NPC>().stopTalkingAnimation();
             nearestNPC = null;
+            isTalkable = false;
+            stopTalkingWithNPC();
         }
     }
 
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnCollisionEnter2D(Collision2D collision) //für Kollisionen mit BoxCollidern
     {
         if (collision.gameObject.tag == "Sign")
         {
@@ -152,7 +146,7 @@ public class Player : MonoBehaviour
         }
     }
 
-    private void OnCollisionExit2D(Collision2D collision)
+    private void OnCollisionExit2D(Collision2D collision)  //für Kollisionen mit BoxCollidern
     {
         if (collision.gameObject.tag == "Sign")
         {

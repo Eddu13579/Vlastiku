@@ -6,11 +6,13 @@ public class ControllerManager : MonoBehaviour
 {
     Player playerScript;
     OverworldUIManager OverworldUIManager;
+    InventoryManager InventoryManager;
 
     void Start()
     {
         playerScript = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
         OverworldUIManager = GameObject.FindGameObjectWithTag("OverworldUIManager").GetComponent<OverworldUIManager>();
+        InventoryManager = GameObject.FindGameObjectWithTag("InventoryManager").GetComponent<InventoryManager>();
     }
 
     void Update()
@@ -25,7 +27,10 @@ public class ControllerManager : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.E))
         {
-            playerScript.talkingWithNPC();
+            if (playerScript.isTalkable == true)
+            {
+                playerScript.startTalkingWithNPC();
+            }
         }
         if (Input.GetKeyDown(KeyCode.Space))
         {
@@ -43,6 +48,19 @@ public class ControllerManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             OverworldUIManager.showPause();
+        }
+
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            InventoryManager.ChangeSelectedSlot(0);
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            InventoryManager.ChangeSelectedSlot(1);
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            InventoryManager.ChangeSelectedSlot(2);
         }
     }
 }

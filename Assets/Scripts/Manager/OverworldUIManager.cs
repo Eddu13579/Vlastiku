@@ -18,9 +18,6 @@ public class OverworldUIManager : MonoBehaviour
     Gradient healthbarFillGradient = new Gradient();
 
     [SerializeField]
-    GameObject selectedWeaponText;
-
-    [SerializeField]
     GameObject dialogBox;
     [SerializeField]
     GameObject dialogText;
@@ -44,10 +41,11 @@ public class OverworldUIManager : MonoBehaviour
     GameObject Maininventory;
 
     [SerializeField]
-    Text actionText;
+    GameObject actionText;
 
     Player playerScript;
 
+    static bool isDialogShown = false;
     static bool GameIsPaused = false;
     static bool IsInventoryShown = false;
 
@@ -69,7 +67,7 @@ public class OverworldUIManager : MonoBehaviour
 
         Maininventory.SetActive(false);
 
-        actionText.text = string.Empty;
+        actionText.GetComponentInChildren<TextMeshProUGUI>().text = string.Empty;
 
         healthbarHintergrund.GetComponent<Image>().sprite = null;
 
@@ -79,8 +77,6 @@ public class OverworldUIManager : MonoBehaviour
     void Update()
     {
         healthBarUpdate();
-
-        selectedWeaponUpdate();
 
         showActionText();
     }
@@ -93,17 +89,19 @@ public class OverworldUIManager : MonoBehaviour
 
     public void showPause()
     {
-        if (GameIsPaused)
-        {
-            Resume();
-        } else
+        if (!GameIsPaused)
         {
             Pause();
+        } else
+        {
+            Resume();
         }
     }
 
-    public void showDialog(bool isDialogShown)
+    public void showDialog(bool newIsDialogShown)
     {
+        isDialogShown = newIsDialogShown;
+
         dialogBox.SetActive(isDialogShown);
         dialogText.SetActive(isDialogShown);
         dialogActionButton1.SetActive(isDialogShown);
@@ -113,6 +111,24 @@ public class OverworldUIManager : MonoBehaviour
     public void changeDialogText(string newDialogText)
     {
         dialogText.GetComponentInChildren<TextMeshProUGUI>().text = newDialogText;
+    }
+
+    public void showActionText()
+    {
+        if(playerScript.isTalkable == true)
+        {
+            actionText.GetComponentInChildren<TextMeshProUGUI>().text = "Press 'E' to talk";
+        }
+        else
+        {
+            actionText.GetComponentInChildren<TextMeshProUGUI>().text = string.Empty;
+        }
+
+    }
+
+    public void changeActionText(string newActionText)
+    {
+        actionText.GetComponentInChildren<TextMeshProUGUI>().text = newActionText;
     }
 
     void healthBarUpdate()
@@ -125,30 +141,17 @@ public class OverworldUIManager : MonoBehaviour
         healthbarHintergrund.color = healthbarFillGradient.Evaluate(healthSlider.normalizedValue);
     }
 
-    void selectedWeaponUpdate()
+    public void Pause()
     {
-        if (playerScript.currentlyHoldingWeapon.name != null)
-        {
-            selectedWeaponText.GetComponentInChildren<TextMeshProUGUI>().text = playerScript.currentlyHoldingWeapon.name;
-        }
-    }
+        Time.timeScale = 0f;
+        GameIsPaused = true;
 
-    void showActionText()
-    {
-        if(playerScript.isTalkable == true)
-        {
-            actionText.text = "Press 'E' to talk";
-        }
-        else
-        {
-            actionText.text = string.Empty;
-        }
+        resumeButton.SetActive(true);
+        settingsButton.SetActive(true);
+        retryButton.SetActive(true);
+        exitButton.SetActive(true);
 
-    }
-
-    public void setActionText(string newText)
-    {
-        actionText.text = newText;
+        pauseFilter.SetActive(true);
     }
 
     public void Resume()
@@ -162,18 +165,6 @@ public class OverworldUIManager : MonoBehaviour
         exitButton.SetActive(false);
 
         pauseFilter.SetActive(false);
-    }
-    public void Pause()
-    {
-        Time.timeScale = 0f;
-        GameIsPaused = true;
-
-        resumeButton.SetActive(true);
-        settingsButton.SetActive(true);
-        retryButton.SetActive(true);
-        exitButton.SetActive(true);
-
-        pauseFilter.SetActive(true);
     }
 
     public void Settings()
