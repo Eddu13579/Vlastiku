@@ -6,7 +6,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class UIManager : MonoBehaviour
+public class OverworldUIManager : MonoBehaviour
 {
     [SerializeField]
     Slider healthSlider;
@@ -19,6 +19,15 @@ public class UIManager : MonoBehaviour
 
     [SerializeField]
     GameObject selectedWeaponText;
+
+    [SerializeField]
+    GameObject dialogBox;
+    [SerializeField]
+    GameObject dialogText;
+    [SerializeField]
+    GameObject dialogActionButton1;
+    [SerializeField]
+    GameObject dialogActionButton2;
 
     [SerializeField]
     GameObject resumeButton;
@@ -63,6 +72,8 @@ public class UIManager : MonoBehaviour
         actionText.text = string.Empty;
 
         healthbarHintergrund.GetComponent<Image>().sprite = null;
+
+        showDialog(false);
     }
 
     void Update()
@@ -114,6 +125,19 @@ public class UIManager : MonoBehaviour
         }
     }
 
+    public void showDialog(bool isDialogShown)
+    {
+        dialogBox.SetActive(isDialogShown);
+        dialogText.SetActive(isDialogShown);
+        dialogActionButton1.SetActive(isDialogShown);
+        dialogActionButton2.SetActive(isDialogShown);
+    }
+
+    public void changeDialogText(string newDialogText)
+    {
+        dialogText.GetComponentInChildren<TextMeshProUGUI>().text = newDialogText;
+    }
+
     void healthBarUpdate()
     {
         healthText.text = playerScript.currentHealth + ("/") + playerScript.maximumHealth;
@@ -143,6 +167,11 @@ public class UIManager : MonoBehaviour
             actionText.text = string.Empty;
         }
 
+    }
+
+    public void setActionText(string newText)
+    {
+        actionText.text = newText;
     }
 
     public void Resume()

@@ -136,6 +136,12 @@ public class Player : MonoBehaviour
         {
             isTalkable = true;
         }
+
+        if (collision.gameObject.tag == "Sign")
+        {
+            collision.GetComponent<Sign>().showDialogText();
+            Debug.Log("KOLISION");
+        }
     }
 
     private void OnTriggerExit2D(Collider2D collision)
@@ -147,6 +153,23 @@ public class Player : MonoBehaviour
             isTalkable = false;
             animator.SetBool("isAnswering", false);
             nearestNPC = null;
+        }
+    }
+
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "Sign")
+        {
+            collision.gameObject.GetComponent<Sign>().showDialogText();
+        }
+    }
+
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "Sign")
+        {
+            collision.gameObject.GetComponent<Sign>().exitDialogText();
         }
     }
 
