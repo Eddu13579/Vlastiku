@@ -18,10 +18,12 @@ public class Player : MonoBehaviour
     public GameObject AttackPoint;
     [SerializeField]
     public GameObject bulletPrefab;
+
     GameObject nearestNPC;
 
+    bool isEnabled = true;
+
     public Vector2 movement;
-    public int direction = 0;
 
     public LayerMask enemyLayer;
 
@@ -33,8 +35,6 @@ public class Player : MonoBehaviour
     public float jumpStrength = 750;
     public float walkingSpeed = 4f;
     public float sprintingSpeed = 7f;
-    
-    bool isEnabled = true;
 
     bool isSprinting = false;
 
@@ -43,23 +43,10 @@ public class Player : MonoBehaviour
     void Start()
     {
         currentlyHoldingWeapon = new Sword("Longsword", 20, 5f, 5f, 2f);
-
     }
 
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.LeftShift))
-        {
-            isSprinting = true;
-            animator.SetBool("isSprinting", true);
-        }
-        if (Input.GetKeyUp(KeyCode.LeftShift))
-        {
-            isSprinting = false;
-            animator.SetBool("isSprinting", false);
-
-        }
-
         movement.x = Input.GetAxisRaw("Horizontal");
         movement.y = Input.GetAxisRaw("Vertical");
 
@@ -79,36 +66,6 @@ public class Player : MonoBehaviour
         {
             animator.SetBool("isWalking", false);
         }
-
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            if(isTalkable)
-            {
-                animator.SetBool("isAnswering", true);
-                NPC npcscript = nearestNPC.GetComponent<NPC>();
-                npcscript.animate();
-            }
-        }
-
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            Attack();
-        }
-        if (Input.GetKeyDown(KeyCode.W))
-        {
-            direction = 270;
-        }
-        if (Input.GetKeyDown(KeyCode.F))
-        {
-            if (currentlyHoldingWeapon.isSword)
-            {
-                currentlyHoldingWeapon = new Gun("Gun", 20, 5, 10f);
-            }
-            else
-            {
-                currentlyHoldingWeapon = new Sword("Longsword", 20, 5f, 5f, 2f);
-            }
-        }
         /*animator.SetFloat("Horizontal", movement.x);
         animator.SetFloat("Vertical", movement.y);
         animator.SetFloat("Speed", movement.sqrMagnitude);*/     
@@ -126,31 +83,78 @@ public class Player : MonoBehaviour
                 rb.MovePosition(rb.position + movement * walkingSpeed * Time.fixedDeltaTime);
             }
         }
-
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    public void startSprinting()
     {
-        nearestNPC = collision.gameObject;
-        if(collision.gameObject.layer == 8)
+        isSprinting = true;
+        animator.SetBool("isSprinting", true);
+    }
+    public void stopSprinting()
+    {
+        isSprinting = false;
+        animator.SetBool("isSprinting", false);
+    }
+    public void startTalkingWithNPC() //nachdem man E gedrückt hast
+    {
+         animator.SetBool("isAnswering", true);
+         nearestNPC.GetComponent<NPC>().startTalkingAnimation();
+         nearestNPC.GetComponent<NPC>().action();
+    }
+    public void stopTalkingWithNPC() //wenn man weggeht
+    {
+        animator.SetBool("isAnswering", false);
+    }
+    public void changeWeapon()
+    {
+        if (currentlyHoldingWeapon.isSword)
         {
+            currentlyHoldingWeapon = new Gun("Gun", 20, 5, 10f);
+        }
+        else
+        {
+            currentlyHoldingWeapon = new Sword("Longsword", 20, 5f, 5f, 2f);
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)  //für GameObject mit LAYERN
+    {
+        if(collision.gameObject.layer == 8) //NPC
+        {
+            nearestNPC = collision.gameObject;
             isTalkable = true;
         }
     }
 
-    private void OnTriggerExit2D(Collider2D collision)
+    private void OnTriggerExit2D(Collider2D collision) //für GameObject mit LAYERN
     {
-        if (collision.gameObject.layer == 8)
+        if (collision.gameObject.layer == 8) //NPCs
         {
-            NPC npcscript = nearestNPC.GetComponent<NPC>();
-            npcscript.animator.SetBool("isTalking", false);
-            isTalkable = false;
-            animator.SetBool("isAnswering", false);
+            nearestNPC.GetComponent<NPC>().stopTalkingAnimation();
             nearestNPC = null;
+            isTalkable = false;
+            stopTalkingWithNPC();
         }
     }
 
-    void Attack()
+
+    private void OnCollisionEnter2D(Collision2D collision) //für Kollisionen mit BoxCollidern
+    {
+        if (collision.gameObject.tag == "Sign")
+        {
+            collision.gameObject.GetComponent<Sign>().showDialogText();
+        }
+    }
+
+    private void OnCollisionExit2D(Collision2D collision)  //für Kollisionen mit BoxCollidern
+    {
+        if (collision.gameObject.tag == "Sign")
+        {
+            collision.gameObject.GetComponent<Sign>().exitDialogText();
+        }
+    }
+
+    public void Attack()
     {
         if (currentlyHoldingWeapon.isSword)
         {

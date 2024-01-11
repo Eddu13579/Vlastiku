@@ -15,21 +15,7 @@ public class InventoryManager : MonoBehaviour
         ChangeSelectedSlot(0);
     }
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Alpha1))
-        {
-            ChangeSelectedSlot(0);
-        } else if (Input.GetKeyDown(KeyCode.Alpha2)) 
-        { 
-            ChangeSelectedSlot(1);
-        } else if (Input.GetKeyDown(KeyCode.Alpha3))
-        {
-            ChangeSelectedSlot(2);
-        }
-    }
-
-    void ChangeSelectedSlot(int newValue)
+   public void ChangeSelectedSlot(int newValue)
     {
         if(selectedSlot >= 0) 
         {
