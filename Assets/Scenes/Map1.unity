@@ -15003,7 +15003,6 @@ MonoBehaviour:
   AttackPoint: {fileID: 0}
   bulletPrefab: {fileID: 1784744247670396286, guid: 2c335725b1c8b36428149e0ed8d3a4fc, type: 3}
   movement: {x: 0, y: 0}
-  direction: 0
   enemyLayer:
     serializedVersion: 2
     m_Bits: 128

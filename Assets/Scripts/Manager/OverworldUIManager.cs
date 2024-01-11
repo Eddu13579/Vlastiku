@@ -83,45 +83,22 @@ public class OverworldUIManager : MonoBehaviour
         selectedWeaponUpdate();
 
         showActionText();
+    }
 
-        
-         if (Input.GetKeyDown(KeyCode.Tab))
-         {
-            if (IsInventoryShown==false)
-            {
-                IsInventoryShown = true;
-                Maininventory.SetActive(true);
-            }
-            else if (IsInventoryShown==true)
-            {
-                IsInventoryShown = false;
-                Maininventory.SetActive(false);
-            }
-         }
-        
+    public void showInventory()
+    {
+        IsInventoryShown = !IsInventoryShown;
+        Maininventory.SetActive(IsInventoryShown);
+    }
 
-        if (Input.GetKeyDown(KeyCode.Escape))
+    public void showPause()
+    {
+        if (GameIsPaused)
         {
-            if (GameIsPaused)
-            {
-                Resume();
-                resumeButton.SetActive(false);
-                settingsButton.SetActive(false);
-                retryButton.SetActive(false);
-                exitButton.SetActive(false);
-
-                pauseFilter.SetActive(false);
-            }
-            else
-            {
-                Pause();
-                resumeButton.SetActive(true);
-                settingsButton.SetActive(true);
-                retryButton.SetActive(true);
-                exitButton.SetActive(true);
-
-                pauseFilter.SetActive(true);
-            }
+            Resume();
+        } else
+        {
+            Pause();
         }
     }
 
@@ -197,7 +174,6 @@ public class OverworldUIManager : MonoBehaviour
         exitButton.SetActive(true);
 
         pauseFilter.SetActive(true);
-
     }
 
     public void Settings()
