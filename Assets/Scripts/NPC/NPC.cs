@@ -3,19 +3,39 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-abstract public class NPC : MonoBehaviour
+public class NPC : MonoBehaviour
 {
-    bool haveShop;
-    string text;
+    bool hasShop;
+
     [SerializeField]
     public Animator animator;
 
-    abstract public void animate();
+    [HideInInspector] public InventoryManager inventoryManager;
 
+    virtual public void action() { }
 
-    // Update is called once per frame
+    void Start()
+    {
+        inventoryManager = GameObject.FindGameObjectWithTag("InventoryManager").GetComponent<InventoryManager>();
+    }
+
     void Update()
     {
         
+    }
+
+    public void giveItem(Item itemToGive)
+    {
+        inventoryManager.AddItem(itemToGive);
+    }
+
+    public void startTalkingAnimation()
+    {
+        animator.SetBool("isTalking", true);
+    }
+
+    public void stopTalkingAnimation()
+    {
+        animator.SetBool("isTalking", false);
     }
 }
