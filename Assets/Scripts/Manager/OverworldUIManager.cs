@@ -44,6 +44,8 @@ public class OverworldUIManager : MonoBehaviour
     GameObject actionText;
 
     Player playerScript;
+    DialogLine[] currentDialog;
+    int currenDialogCount;
 
     static bool isDialogShown = false;
     static bool GameIsPaused = false;
@@ -67,7 +69,7 @@ public class OverworldUIManager : MonoBehaviour
 
         Maininventory.SetActive(false);
 
-        actionText.GetComponentInChildren<TextMeshProUGUI>().text = string.Empty;
+        actionText.SetActive(false);
 
         healthbarHintergrund.GetComponent<Image>().sprite = null;
 
@@ -76,9 +78,7 @@ public class OverworldUIManager : MonoBehaviour
 
     void Update()
     {
-        healthBarUpdate();
-
-        showActionText();
+        healthBarUpdate(); //eigentlich unnötig, kann nur bei jedem schaden geupdatet werden
     }
 
     public void showInventory()
@@ -105,25 +105,56 @@ public class OverworldUIManager : MonoBehaviour
         dialogBox.SetActive(isDialogShown);
         dialogText.SetActive(isDialogShown);
         dialogActionButton1.SetActive(isDialogShown);
-        dialogActionButton2.SetActive(isDialogShown);
+
+        //dialogActionButton2.SetActive(isDialogShown);
     }
 
-    public void changeDialogText(string newDialogText)
+    public void startDialog(DialogLine[] newDialog)
     {
-        dialogText.GetComponentInChildren<TextMeshProUGUI>().text = newDialogText;
+        currentDialog = newDialog;
+        currenDialogCount = 0;
+        updateDialogUI();
+
+        showDialog(true);
     }
 
-    public void showActionText()
+    public void nextDialog()
     {
-        if(playerScript.isTalkable == true)
+        currenDialogCount++;
+        updateDialogUI();
+    }
+
+    public void updateDialogUI()
+    {
+        dialogText.GetComponentInChildren<TextMeshProUGUI>().text = currentDialog[currenDialogCount].text;
+
+        if (currentDialog[currenDialogCount].action1 != null)
         {
-            actionText.GetComponentInChildren<TextMeshProUGUI>().text = "Press 'E' to talk";
-        }
-        else
-        {
-            actionText.GetComponentInChildren<TextMeshProUGUI>().text = string.Empty;
+            dialogActionButton1.GetComponentInChildren<Button>().onClick.RemoveAllListeners();
+            dialogActionButton1.GetComponentInChildren<Button>().onClick.AddListener(currentDialog[currenDialogCount].action1.action);
+            dialogActionButton1.GetComponentInChildren<TextMeshProUGUI>().text = currentDialog[currenDialogCount].action1.dialogActionText;
         }
 
+        if (currentDialog[currenDialogCount].action2 != null)
+        {
+            dialogActionButton2.SetActive(true);
+            dialogActionButton2.GetComponentInChildren<Button>().onClick.RemoveAllListeners();
+            dialogActionButton2.GetComponentInChildren<Button>().onClick.AddListener(currentDialog[currenDialogCount].action2.action);
+            dialogActionButton2.GetComponentInChildren<TextMeshProUGUI>().text = currentDialog[currenDialogCount].action2.dialogActionText;
+        } else
+        {
+            dialogActionButton2.SetActive(false);
+        }
+    }
+
+    public void endDialog()
+    {
+        showDialog(false);
+    }
+
+    public void showActionText(bool isActionTextShown)
+    {
+        actionText.SetActive(isActionTextShown);
     }
 
     public void changeActionText(string newActionText)

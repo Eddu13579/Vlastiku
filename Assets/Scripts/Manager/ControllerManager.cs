@@ -27,7 +27,11 @@ public class ControllerManager : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.E))
         {
-            if (playerScript.isTalkable == true)
+            if (playerScript.isInteractionPossible == true)
+            {
+                playerScript.startInteraction();
+            } 
+            else if (playerScript.isTalkingWithNPCPossible == true)
             {
                 playerScript.startTalkingWithNPC();
             }
