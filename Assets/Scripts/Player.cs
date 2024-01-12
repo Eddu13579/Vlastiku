@@ -22,7 +22,7 @@ public class Player : MonoBehaviour
     GameObject nearestNPC;
     GameObject interactionObject;
 
-    bool isEnabled = true;
+    public bool isEnabled = true;
 
     public Vector2 movement;
 
@@ -51,24 +51,27 @@ public class Player : MonoBehaviour
 
     void Update()
     {
-        if (isAbleToMove)
+        if (isEnabled)
         {
-            if (movement.x < 0)
+            if (isAbleToMove)
             {
-                spriteRenderer.flipX = true;
-            }
-            else if (movement.x > 0)
-            {
-                spriteRenderer.flipX = false;
-            }
+                if (movement.x < 0)
+                {
+                    spriteRenderer.flipX = true;
+                }
+                else if (movement.x > 0)
+                {
+                    spriteRenderer.flipX = false;
+                }
 
-            if (movement.x != 0 || movement.y != 0)
-            {
-                animator.SetBool("isWalking", true);
-            }
-            if (movement.x == 0 && movement.y == 0)
-            {
-                animator.SetBool("isWalking", false);
+                if (movement.x != 0 || movement.y != 0)
+                {
+                    animator.SetBool("isWalking", true);
+                }
+                if (movement.x == 0 && movement.y == 0)
+                {
+                    animator.SetBool("isWalking", false);
+                }
             }
         }
     }
@@ -119,6 +122,7 @@ public class Player : MonoBehaviour
 
         if(interactionObject.tag == "Sign")
         {
+            isInDialog = true;
             interactionObject.GetComponent<Sign>().hideActionText();
             interactionObject.GetComponent<Sign>().startDialog();
             animator.SetBool("isAnswering", true);
@@ -131,6 +135,7 @@ public class Player : MonoBehaviour
 
         if (interactionObject.tag == "Sign")
         {
+            isInDialog = false;
             interactionObject.GetComponent<Sign>().showActionText();
         }
     }

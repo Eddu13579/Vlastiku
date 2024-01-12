@@ -44,16 +44,19 @@ public class OverworldUIManager : MonoBehaviour
     GameObject actionText;
 
     Player playerScript;
+    SettingsUIManager SettingsUIManager;
+
     DialogLine[] currentDialog;
     int currenDialogCount;
 
     static bool isDialogShown = false;
-    static bool GameIsPaused = false;
+    static public bool isGamePaused = false;
     static bool IsInventoryShown = false;
 
     void Start()
     {
         playerScript = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+        SettingsUIManager = GameObject.FindGameObjectWithTag("SettingsUIManager").GetComponent<SettingsUIManager>();
 
         resumeButton.GetComponentInChildren<Button>().onClick.AddListener(Resume);
         settingsButton.GetComponentInChildren<Button>().onClick.AddListener(Settings);
@@ -87,9 +90,9 @@ public class OverworldUIManager : MonoBehaviour
         Maininventory.SetActive(IsInventoryShown);
     }
 
-    public void showPause()
+    public void showPauseScreen()
     {
-        if (!GameIsPaused)
+        if (!isGamePaused)
         {
             Pause();
         } else
@@ -175,7 +178,8 @@ public class OverworldUIManager : MonoBehaviour
     public void Pause()
     {
         Time.timeScale = 0f;
-        GameIsPaused = true;
+        isGamePaused = true;
+        playerScript.isEnabled = false;
 
         resumeButton.SetActive(true);
         settingsButton.SetActive(true);
@@ -188,7 +192,8 @@ public class OverworldUIManager : MonoBehaviour
     public void Resume()
     {
         Time.timeScale = 1f;
-        GameIsPaused = false;
+        isGamePaused = false;
+        playerScript.isEnabled = true;
 
         resumeButton.SetActive(false);
         settingsButton.SetActive(false);
@@ -200,13 +205,19 @@ public class OverworldUIManager : MonoBehaviour
 
     public void Settings()
     {
+        resumeButton.SetActive(false);
+        settingsButton.SetActive(false);
+        retryButton.SetActive(false);
+        exitButton.SetActive(false);
 
+        SettingsUIManager.showSettings();
     }
 
     public void Retry()
     {
         Time.timeScale = 1f;
-        GameIsPaused = false;
+        isGamePaused = false;
+        playerScript.isEnabled = true;
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
