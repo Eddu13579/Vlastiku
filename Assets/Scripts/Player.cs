@@ -53,9 +53,6 @@ public class Player : MonoBehaviour
     {
         if (isAbleToMove)
         {
-            movement.x = Input.GetAxisRaw("Horizontal");
-            movement.y = Input.GetAxisRaw("Vertical");
-
             if (movement.x < 0)
             {
                 spriteRenderer.flipX = true;
@@ -82,6 +79,7 @@ public class Player : MonoBehaviour
         {
             if (isAbleToMove)
             {
+                movement = movement.normalized;
                 if (isSprinting)
                 {
                     rb.MovePosition(rb.position + movement * sprintingSpeed * Time.fixedDeltaTime);

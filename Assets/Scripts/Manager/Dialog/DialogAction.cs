@@ -11,6 +11,11 @@ public abstract class DialogAction
         dialogActionText = newDialogActionText;
     }
     public abstract void action();
+
+    public void goToNextLine()
+    {
+        GameObject.FindGameObjectWithTag("OverworldUIManager").GetComponent<OverworldUIManager>().nextDialog();
+    }
 }
 
 public class nextLine : DialogAction
@@ -18,7 +23,7 @@ public class nextLine : DialogAction
     public nextLine(string newDialogActionText) : base(newDialogActionText) { }
     public override void action()
     {
-        GameObject.FindGameObjectWithTag("OverworldUIManager").GetComponent<OverworldUIManager>().nextDialog();
+        goToNextLine();
     }
 }
 
@@ -35,11 +40,20 @@ public class openShop : DialogAction
 public class giveItem : DialogAction
 {
     Item itemToGive;
+    bool shouldContinue;
 
-    public giveItem(string newDialogActionText) : base(newDialogActionText) { }
+    public giveItem(string newDialogActionText, Item newItemToGive, bool newShouldContinue) : base(newDialogActionText) {
+        itemToGive = newItemToGive;
+        shouldContinue = newShouldContinue;
+    }
     public override void action()
     {
         GameObject.FindGameObjectWithTag("InventoryManager").GetComponent<InventoryManager>().AddItem(itemToGive);
+
+        if(shouldContinue == true)
+        {
+            goToNextLine();
+        }
     }
 
 }

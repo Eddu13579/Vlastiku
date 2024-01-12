@@ -17,6 +17,9 @@ public class ControllerManager : MonoBehaviour
 
     void Update()
     {
+        playerScript.movement.x = Input.GetAxisRaw("Horizontal");
+        playerScript.movement.y = Input.GetAxisRaw("Vertical");
+
         if (Input.GetKeyDown(KeyCode.LeftShift))
         {
             playerScript.startSprinting();

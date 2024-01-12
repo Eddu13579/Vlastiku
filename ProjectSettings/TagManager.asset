@@ -10,6 +10,7 @@ TagManager:
   - Sign
   - OverworldUIManager
   - InventoryManager
+  - ItemManager
   layers:
   - Default
   - TransparentFX

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEditor.AssetImporters;
 
 public class Sign : MonoBehaviour
 {
@@ -9,15 +10,17 @@ public class Sign : MonoBehaviour
     public DialogLine[] dialog;
 
     OverworldUIManager OverworldUIManager;
+    ItemManager ItemManager;
 
     void Start()
     {
         OverworldUIManager = GameObject.FindGameObjectWithTag("OverworldUIManager").GetComponent<OverworldUIManager>();
+        ItemManager = GameObject.FindGameObjectWithTag("ItemManager").GetComponent<ItemManager>();
 
         dialog = new DialogLine[10];
         dialog[0] = new DialogLine("Hallo Reisender", new nextLine("Hallo"), null);
         dialog[1] = new DialogLine("Wie gehts es Ihnen?", new nextLine("gut und dir?"), null);
-        dialog[2] = new DialogLine("nice", new nextLine("freut mich zu hören"), null);
+        dialog[2] = new DialogLine("nice", new nextLine("freut mich zu hören"), new giveItem("kann ich ein apfel haben?", ItemManager.getFoodWithName("Apple"), true));
         dialog[3] = new DialogLine("dann verpiss dich", new endDialog("Ende"), null);
     }
 
