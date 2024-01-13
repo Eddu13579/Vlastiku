@@ -49,6 +49,13 @@ public class ControllerManager : MonoBehaviour
             {
                 playerScript.changeWeapon();
             }
+            if (Input.GetKeyDown(KeyCode.G))
+            {
+                if(playerScript.isAbleToPickUpItem == true)
+                {
+                    playerScript.pickUpItem();
+                }
+            }
 
             if (Input.GetKeyDown(KeyCode.Tab))
             {
@@ -56,7 +63,10 @@ public class ControllerManager : MonoBehaviour
             }
             if (Input.GetKeyDown(KeyCode.Escape))
             {
-                OverworldUIManager.showPauseScreen();
+                if (playerScript.isAbleToPause == true)
+                {
+                    OverworldUIManager.showPauseScreen();
+                }
             }
 
             if (Input.GetKeyDown(KeyCode.Alpha1))

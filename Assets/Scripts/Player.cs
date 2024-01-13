@@ -21,6 +21,7 @@ public class Player : MonoBehaviour
 
     GameObject nearestNPC;
     GameObject interactionObject;
+    GameObject nearestGroundItem;
 
     public bool isEnabled = true;
 
@@ -42,6 +43,8 @@ public class Player : MonoBehaviour
     public bool isTalkingWithNPCPossible = false;
     public bool isInteractionPossible = false;
     public bool isInDialog = false;
+    public bool isAbleToPause = true;
+    public bool isAbleToPickUpItem = false;
     public bool isAbleToMove = true;
 
     void Start()
@@ -83,13 +86,31 @@ public class Player : MonoBehaviour
             if (isAbleToMove)
             {
                 movement = movement.normalized;
+                
+                Vector2 oldMovement = movement;
+
                 if (isSprinting)
                 {
-                    rb.MovePosition(rb.position + movement * sprintingSpeed * Time.fixedDeltaTime);
+                    movement = movement * sprintingSpeed;
                 }
                 else
                 {
-                    rb.MovePosition(rb.position + movement * walkingSpeed * Time.fixedDeltaTime);
+                    movement = movement * walkingSpeed;
+                }
+
+                rb.MovePosition(rb.position + movement * Time.fixedDeltaTime);
+
+                if(movement == oldMovement)
+                {
+                    animator.SetBool("isWalking", false);
+                }
+
+                if (movement != Vector2.zero && movement != oldMovement * walkingSpeed && oldMovement * sprintingSpeed == movement)
+                {
+                    animator.SetBool("isSprinting", true);
+                } else
+                {
+                    animator.SetBool("isSprinting", false);
                 }
             }
         }
@@ -98,13 +119,20 @@ public class Player : MonoBehaviour
     public void startSprinting()
     {
         isSprinting = true;
-        animator.SetBool("isSprinting", true);
     }
     public void stopSprinting()
     {
         isSprinting = false;
-        animator.SetBool("isSprinting", false);
     }
+
+    public void pickUpItem() //nachdem man G gedrückt hast
+    {
+        isAbleToPickUpItem = false;
+        nearestGroundItem.GetComponent<GroundItem>().hideActionText();
+        nearestGroundItem.GetComponent<GroundItem>().pickedUp();
+        nearestGroundItem = null;
+    }
+
     public void startTalkingWithNPC() //nachdem man E gedrückt hast
     {
          animator.SetBool("isAnswering", true);
@@ -123,6 +151,7 @@ public class Player : MonoBehaviour
         if(interactionObject.tag == "Sign")
         {
             isInDialog = true;
+            isAbleToPause = false;
             interactionObject.GetComponent<Sign>().hideActionText();
             interactionObject.GetComponent<Sign>().startDialog();
             animator.SetBool("isAnswering", true);
@@ -136,6 +165,7 @@ public class Player : MonoBehaviour
         if (interactionObject.tag == "Sign")
         {
             isInDialog = false;
+            isAbleToPause = true;
             interactionObject.GetComponent<Sign>().showActionText();
         }
     }
@@ -176,6 +206,12 @@ public class Player : MonoBehaviour
             nearestNPC = collision.gameObject;
             nearestNPC.GetComponent<NPC>().showActionText();
         }
+        if (collision.gameObject.layer == 10) //GroundItem
+        {
+            isAbleToPickUpItem = true;
+            nearestGroundItem = collision.gameObject;
+            nearestGroundItem.GetComponent<GroundItem>().showActionText();
+        }
     }
 
     private void OnTriggerExit2D(Collider2D collision) //für GameObject mit LAYERN
@@ -188,7 +224,18 @@ public class Player : MonoBehaviour
             nearestNPC = null;
             stopTalkingWithNPC();
         }
-    }
+        if (collision.gameObject.layer == 10) //GroundItem
+        {
+            //SIEHE pickUpItem()
+            if (nearestGroundItem != null)
+            {
+                isAbleToPickUpItem = false;
+                nearestGroundItem.GetComponent<GroundItem>().hideActionText();
+                nearestGroundItem = null;
+            }
+        }
+
+     }
 
     private void OnCollisionEnter2D(Collision2D collision) //für Kollisionen mit BoxCollidern
     {
