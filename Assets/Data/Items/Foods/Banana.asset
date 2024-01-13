@@ -10,10 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6293b8faaa296f947b129ca31874c0e9, type: 3}
-  m_Name: Apple
+  m_Name: Banana
   m_EditorClassIdentifier: 
   tile: {fileID: 0}
-  image: {fileID: -523326389949524170, guid: 21dd70caa47f7d048bc4945d62e642f3, type: 3}
+  image: {fileID: -7083142980055309943, guid: 21dd70caa47f7d048bc4945d62e642f3, type: 3}
+  descriptionText: maybe this is a weapon?
   type: 2
   actionType: 2
-  stackable: 0
+  stackable: 1
