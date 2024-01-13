@@ -9,6 +9,7 @@ public class Item : ScriptableObject
 {
     public TileBase tile;
     public Sprite image;
+    public string descriptionText;
 
     public ItemType type;
     public ActionType actionType;

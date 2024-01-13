@@ -17,50 +17,70 @@ public class ControllerManager : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.LeftShift))
+        playerScript.movement.x = Input.GetAxisRaw("Horizontal");
+        playerScript.movement.y = Input.GetAxisRaw("Vertical");
+
+        if (playerScript.isEnabled)
         {
-            playerScript.startSprinting();
-        }
-        if (Input.GetKeyUp(KeyCode.LeftShift))
-        {
-            playerScript.stopSprinting();
-        }
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            if (playerScript.isTalkable == true)
+            if (Input.GetKeyDown(KeyCode.LeftShift))
             {
-                playerScript.startTalkingWithNPC();
+                playerScript.startSprinting();
             }
-        }
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            playerScript.Attack();
-        }
-        if (Input.GetKeyDown(KeyCode.F))
-        {
-            playerScript.changeWeapon();
-        }
+            if (Input.GetKeyUp(KeyCode.LeftShift))
+            {
+                playerScript.stopSprinting();
+            }
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                if (playerScript.isInteractionPossible == true)
+                {
+                    playerScript.startInteraction();
+                }
+                else if (playerScript.isTalkingWithNPCPossible == true)
+                {
+                    playerScript.startTalkingWithNPC();
+                }
+            }
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                playerScript.Attack();
+            }
+            if (Input.GetKeyDown(KeyCode.F))
+            {
+                playerScript.changeWeapon();
+            }
+            if (Input.GetKeyDown(KeyCode.G))
+            {
+                if(playerScript.isAbleToPickUpItem == true)
+                {
+                    playerScript.pickUpItem();
+                }
+            }
 
-        if (Input.GetKeyDown(KeyCode.Tab))
-        {
-            OverworldUIManager.showInventory();
-        }
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            OverworldUIManager.showPause();
-        }
+            if (Input.GetKeyDown(KeyCode.Tab))
+            {
+                OverworldUIManager.showInventory();
+            }
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                if (playerScript.isAbleToPause == true)
+                {
+                    OverworldUIManager.showPauseScreen();
+                }
+            }
 
-        if (Input.GetKeyDown(KeyCode.Alpha1))
-        {
-            InventoryManager.ChangeSelectedSlot(0);
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha2))
-        {
-            InventoryManager.ChangeSelectedSlot(1);
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha3))
-        {
-            InventoryManager.ChangeSelectedSlot(2);
+            if (Input.GetKeyDown(KeyCode.Alpha1))
+            {
+                InventoryManager.ChangeSelectedSlot(0);
+            }
+            else if (Input.GetKeyDown(KeyCode.Alpha2))
+            {
+                InventoryManager.ChangeSelectedSlot(1);
+            }
+            else if (Input.GetKeyDown(KeyCode.Alpha3))
+            {
+                InventoryManager.ChangeSelectedSlot(2);
+            }
         }
     }
 }
