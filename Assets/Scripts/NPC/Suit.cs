@@ -9,14 +9,18 @@ public class Suit : NPC
 
     public Item[] randomItem;
 
-    private void Start()
+    void Start()
     {
+        //CODE VON DER OBERKLASSE "START" MUSS HINZUGEFÜGT WERDEN
+        inventoryManager = GameObject.FindGameObjectWithTag("InventoryManager").GetComponent<InventoryManager>();
+        OverworldUIManager = GameObject.FindGameObjectWithTag("OverworldUIManager").GetComponent<OverworldUIManager>();
+
         randomIdle = Random.Range(0, 10);
     }
 
     public override void action()
     {
-        giveItem(randomItem[Random.RandomRange(0, randomItem.Length)]);
+        giveItem(randomItem[Random.Range(0, randomItem.Length)]);
     }
 
     void Update()
