@@ -1,21 +1,25 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GroundItem : MonoBehaviour
 {
     public Item item;
+    public int anzahl = 1;
 
     public string actionText = "Press G to pick up";
 
     [SerializeField]
     SpriteRenderer spriteRenderer;
 
+    [HideInInspector] public Player playerScript;
     [HideInInspector] public InventoryManager InventoryManager;
     [HideInInspector] public OverworldUIManager OverworldUIManager;
 
     void Start()
     {
+        playerScript = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
         InventoryManager = GameObject.FindGameObjectWithTag("InventoryManager").GetComponent<InventoryManager>();
         OverworldUIManager = GameObject.FindGameObjectWithTag("OverworldUIManager").GetComponent<OverworldUIManager>();
 
@@ -30,7 +34,13 @@ public class GroundItem : MonoBehaviour
     public void pickedUp()
     {
         InventoryManager.AddItem(item);
-        Destroy(gameObject);
+        anzahl--;
+
+        if (anzahl == 0)
+        {
+            playerScript.ItemGone();
+            Destroy(gameObject);
+        }
     }
 
     public void showActionText()

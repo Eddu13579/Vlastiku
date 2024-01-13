@@ -127,9 +127,13 @@ public class Player : MonoBehaviour
 
     public void pickUpItem() //nachdem man G gedrückt hast
     {
+        nearestGroundItem.GetComponent<GroundItem>().pickedUp();
+    }
+
+    public void ItemGone() //wenn das letzte Item aufgehoben worden ist
+    {
         isAbleToPickUpItem = false;
         nearestGroundItem.GetComponent<GroundItem>().hideActionText();
-        nearestGroundItem.GetComponent<GroundItem>().pickedUp();
         nearestGroundItem = null;
     }
 
@@ -226,13 +230,7 @@ public class Player : MonoBehaviour
         }
         if (collision.gameObject.layer == 10) //GroundItem
         {
-            //SIEHE pickUpItem()
-            if (nearestGroundItem != null)
-            {
-                isAbleToPickUpItem = false;
-                nearestGroundItem.GetComponent<GroundItem>().hideActionText();
-                nearestGroundItem = null;
-            }
+            ItemGone();
         }
 
      }
