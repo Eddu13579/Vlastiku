@@ -39,6 +39,7 @@ public class GroundItem : MonoBehaviour
         if (anzahl == 0)
         {
             playerScript.ItemGone();
+            hideActionText();
             Destroy(gameObject);
         }
     }

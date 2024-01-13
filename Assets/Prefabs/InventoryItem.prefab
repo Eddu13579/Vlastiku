@@ -92,6 +92,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   image: {fileID: 8786750997361613027}
   countText: {fileID: 6070333477847372855}
+  ToolTip: {fileID: 0}
   item: {fileID: 0}
   count: 1
   parentAfterDrag: {fileID: 0}

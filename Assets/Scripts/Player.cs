@@ -133,7 +133,6 @@ public class Player : MonoBehaviour
     public void ItemGone() //wenn das letzte Item aufgehoben worden ist
     {
         isAbleToPickUpItem = false;
-        nearestGroundItem.GetComponent<GroundItem>().hideActionText();
         nearestGroundItem = null;
     }
 

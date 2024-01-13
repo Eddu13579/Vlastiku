@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tile: {fileID: 0}
   image: {fileID: -7083142980055309943, guid: 21dd70caa47f7d048bc4945d62e642f3, type: 3}
+  descriptionText: maybe this is a weapon?
   type: 2
   actionType: 2
   stackable: 1

@@ -27,6 +27,11 @@ public class OverworldUIManager : MonoBehaviour
     GameObject dialogActionButton2;
 
     [SerializeField]
+    public GameObject TooltipMenu;
+    [SerializeField]
+    public GameObject ActionMenu;
+
+    [SerializeField]
     GameObject resumeButton;
     [SerializeField]
     GameObject settingsButton;
@@ -73,6 +78,9 @@ public class OverworldUIManager : MonoBehaviour
         Maininventory.SetActive(false);
 
         actionText.SetActive(false);
+
+        TooltipMenu.SetActive(false);
+        ActionMenu.SetActive(false);
 
         healthbarHintergrund.GetComponent<Image>().sprite = null;
 

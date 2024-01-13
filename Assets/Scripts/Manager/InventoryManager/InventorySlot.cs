@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class InventorySlot : MonoBehaviour, IDropHandler
 {
     public Image image;
+    public GameObject ToolTip;
     public Color selectedColor, notSelectedColor;
 
     private void Awake()
