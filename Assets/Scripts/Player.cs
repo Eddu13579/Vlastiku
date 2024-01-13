@@ -229,6 +229,10 @@ public class Player : MonoBehaviour
         }
         if (collision.gameObject.layer == 10) //GroundItem
         {
+            if(nearestGroundItem != null)
+            {
+                nearestGroundItem.GetComponent<GroundItem>().hideActionText();
+            }
             ItemGone();
         }
 

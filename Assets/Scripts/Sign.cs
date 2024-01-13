@@ -19,9 +19,9 @@ public class Sign : MonoBehaviour
 
         dialog = new DialogLine[10];
         dialog[0] = new DialogLine("Hallo Reisender", new nextLine("Hallo"), null);
-        dialog[1] = new DialogLine("Wie gehts es Ihnen?", new nextLine("gut und dir?"), null);
-        dialog[2] = new DialogLine("nice", new nextLine("freut mich zu hören"), new giveItem("kann ich ein apfel haben?", ItemManager.getFoodWithName("Apple"), true));
-        dialog[3] = new DialogLine("dann verpiss dich", new endDialog("Ende"), null);
+        dialog[1] = new DialogLine("Wie gehts es Ihnen?", new nextLine("Gut und dir?"), null);
+        dialog[2] = new DialogLine("Nice", new nextLine("Freut mich zu hören"), new giveItem("Kann ich ein apfel haben?", ItemManager.getFoodWithName("Apple"), true));
+        dialog[3] = new DialogLine("Dann verpiss dich", new endDialog("Ende"), null);
     }
 
     public void startDialog()
