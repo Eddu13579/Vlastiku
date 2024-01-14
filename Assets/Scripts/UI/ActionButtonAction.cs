@@ -7,6 +7,7 @@ public abstract class ActionButtonAction
     public string actionButtonText;
     public OverworldUIManager OverworldUIManager;
     public InventoryManager InventoryManager;
+    public Player playerScript;
     public ActionMenu ActionMenu;
 
     public ActionButtonAction(InventoryItem newItem)
@@ -14,6 +15,7 @@ public abstract class ActionButtonAction
         item = newItem;
         OverworldUIManager = GameObject.FindGameObjectWithTag("OverworldUIManager").GetComponent<OverworldUIManager>();
         InventoryManager = GameObject.FindGameObjectWithTag("InventoryManager").GetComponent<InventoryManager>();
+        playerScript = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
         ActionMenu = OverworldUIManager.ActionMenu.GetComponent<ActionMenu>();
     }
     public abstract void action();
@@ -59,6 +61,8 @@ public class Drop : ActionButtonAction
     }
     public override void action()
     {
+        playerScript.DropItem(item.item);
+        InventoryManager.DeleteItem(item);
         hideActionMenu();
     }
 }

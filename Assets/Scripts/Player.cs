@@ -17,6 +17,8 @@ public class Player : MonoBehaviour
     [SerializeField]
     public GameObject AttackPoint;
     [SerializeField]
+    public GameObject GroundItemPrefab;
+    [SerializeField]
     public GameObject bulletPrefab;
 
     GameObject nearestNPC;
@@ -128,6 +130,13 @@ public class Player : MonoBehaviour
     public void pickUpItem() //nachdem man G gedrückt hast
     {
         nearestGroundItem.GetComponent<GroundItem>().pickedUp();
+    }
+
+    public void DropItem(Item itemToDrop) //droppedItem wird NICHT gelöscht, das passiert bei Drop()
+    {
+        GameObject droppedItem = Instantiate(GroundItemPrefab, transform.parent);
+        droppedItem.GetComponent<GroundItem>().item = itemToDrop;
+        droppedItem.transform.position = transform.position;
     }
 
     public void ItemGone() //wenn das letzte Item aufgehoben worden ist
