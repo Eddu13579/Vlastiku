@@ -6,13 +6,17 @@ using UnityEngine.UI;
 
 public class InventorySlot : MonoBehaviour, IDropHandler
 {
+    public ItemType category;
+
+    InventoryManager InventoryManager;
+
     public Image image;
-    public GameObject ToolTip;
     public Color selectedColor, notSelectedColor;
 
     private void Awake()
     {
         Deselect();
+        InventoryManager = GameObject.FindGameObjectWithTag("InventoryManager").GetComponent<InventoryManager>();
     }
 
     public void Select()
@@ -30,7 +34,13 @@ public class InventorySlot : MonoBehaviour, IDropHandler
         if(transform.childCount == 0)
         {
             InventoryItem inventoryItem = eventData.pointerDrag.GetComponent<InventoryItem>();
-            inventoryItem.parentAfterDrag = transform;
+            if (category == ItemType.Everything || category == inventoryItem.item.type)
+            {
+                inventoryItem.parentAfterDrag = transform;
+            } else
+            {
+                inventoryItem.parentAfterDrag = InventoryManager.findNextSuitableSlot(inventoryItem.item).transform;
+            }
         }
     }
 }

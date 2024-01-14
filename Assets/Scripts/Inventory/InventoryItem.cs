@@ -58,7 +58,7 @@ public class InventoryItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
         transform.position = Input.mousePosition;
     }
 
-    public void OnEndDrag(PointerEventData eventData)
+    public void OnEndDrag(PointerEventData eventData) //ÜBERPRÜFUNG OB SLOT FÜR KATEGORIE GEMACHT
     {
         image.raycastTarget = true;
         transform.SetParent(parentAfterDrag);

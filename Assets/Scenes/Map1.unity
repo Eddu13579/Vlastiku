@@ -18027,6 +18027,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8918128564647094687, guid: bc44e471807e608488c295731a37e641, type: 3}
+      propertyPath: category
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 9010110504290820482, guid: bc44e471807e608488c295731a37e641, type: 3}
       propertyPath: m_Name
       value: InventorySlot
@@ -20032,6 +20036,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8918128564647094687, guid: bc44e471807e608488c295731a37e641, type: 3}
+      propertyPath: category
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 9010110504290820482, guid: bc44e471807e608488c295731a37e641, type: 3}
       propertyPath: m_Name
       value: InventorySlot (1)
@@ -20180,8 +20188,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c44b19b41eee74747803ac1b52f7cbd6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ActionButton1: {fileID: 390206729}
-  ActionButton2: {fileID: 132192761}
+  ActionButtons:
+  - {fileID: 390206729}
+  - {fileID: 132192761}
   isFixed: 0
 --- !u!114 &901975897
 MonoBehaviour:
@@ -24179,6 +24188,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8918128564647094687, guid: bc44e471807e608488c295731a37e641, type: 3}
+      propertyPath: category
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 9010110504290820482, guid: bc44e471807e608488c295731a37e641, type: 3}
       propertyPath: m_Name
       value: InventorySlot (2)
@@ -24276,6 +24289,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c893efd3a87454c4cae105798e3df476, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  itemIDCount: 0
   Foods:
   - {fileID: 11400000, guid: fc0f7d1c3adbe4d47820cfcbbe67e569, type: 2}
   - {fileID: 11400000, guid: 74637ba2a09a54c49b938bc263e24c99, type: 2}
@@ -26431,6 +26445,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c3ef0a686dc3c034ab8669df7aa88eed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Inventory: []
+  inventoryMaxSize: 23
   maxStackedItems: 16
   inventorySlots:
   - {fileID: 1851292180}

@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6293b8faaa296f947b129ca31874c0e9, type: 3}
   m_Name: Coconut
   m_EditorClassIdentifier: 
-  tile: {fileID: 0}
   image: {fileID: -7314877363680337046, guid: 21dd70caa47f7d048bc4945d62e642f3, type: 3}
-  type: 2
-  actionType: 2
+  descriptionText: 
   stackable: 1
+  type: 3
+  effectOnConsume: []

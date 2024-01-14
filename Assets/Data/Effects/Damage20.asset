@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 12781bd4d2a385741ba516a85b6baa46, type: 3}
   m_Name: Damage20
   m_EditorClassIdentifier: 
-  value: 0
+  value: 20
   duration: 0
   playerScript: {fileID: 0}

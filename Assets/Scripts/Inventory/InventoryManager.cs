@@ -29,31 +29,32 @@ public class InventoryManager : MonoBehaviour
         selectedSlot = newValue;
     }
 
-    public bool AddItem(Item item)
+    public bool AddItem(Item itemToAdd) //effizienter machen!!!! array mit verschiedenen kategorien speichern (inventoryWeapon, InventoryArmor) und durchgehen als ein Array mit allen
     {
         for (int i = 0; i < inventorySlots.Length; i++)
         {
             InventorySlot slot = inventorySlots[i];
             InventoryItem itemInSlot = slot.GetComponentInChildren<InventoryItem>();
-            if (itemInSlot != null && itemInSlot.item == item && itemInSlot.count < maxStackedItems && itemInSlot.item.stackable == true)
+            if(slot.category == ItemType.Everything || slot.category == itemToAdd.type)
             {
-                itemInSlot.count++;
-                itemInSlot.RefreshCount();
-                return true;
+                if (itemInSlot != null && itemInSlot.item == itemToAdd && itemInSlot.count < maxStackedItems && itemInSlot.item.stackable == true)
+                {
+                    itemInSlot.count++;
+                    itemInSlot.RefreshCount();
+                    return true;
+                }
             }
         }
 
-        for (int i = 0; i < inventorySlots.Length; i++)
+        InventorySlot suitableSlot = findNextSuitableSlot(itemToAdd);
+        if(suitableSlot != null)
         {
-            InventorySlot slot = inventorySlots[i];
-            InventoryItem itemInSlot = slot.GetComponentInChildren<InventoryItem>();
-            if (itemInSlot == null)
-            {
-                SpawnNewItem(item, slot);
-                return true;
-            }
+            SpawnNewItem(itemToAdd, suitableSlot);
+            return true;
+        } else
+        {
+            return false;
         }
-        return false;
     }
 
     public void DeleteItem(InventoryItem itemToDelete)
@@ -87,7 +88,7 @@ public class InventoryManager : MonoBehaviour
         }
     }
 
-    void SpawnNewItem(Item item, InventorySlot slot)
+    void SpawnNewItem(Item item, InventorySlot slot) //hier wird NICHT gecheckt ob der Slot die richtige Kategorie hat, das passiert in AddItem()/findNextSuitableSlot
     {
         GameObject newItemGo = Instantiate(inventoryItemPrefab, slot.transform);
         InventoryItem inventoryItem = newItemGo.GetComponent<InventoryItem>();
@@ -101,6 +102,20 @@ public class InventoryManager : MonoBehaviour
                 break;
             }
         }
+    }
+
+    public InventorySlot findNextSuitableSlot(Item item) //effizienter machen!!!! array mit verschiedenen kategorien speichern (inventoryWeapon, InventoryArmor) und durchgehen als ein Array mit allen
+    {
+        for (int i = 0; i < inventorySlots.Length; i++)
+        {
+            InventorySlot slot = inventorySlots[i];
+            InventoryItem itemInSlot = slot.GetComponentInChildren<InventoryItem>();
+            if (itemInSlot == null && slot.category == ItemType.Everything || slot.category == item.type)
+            {
+                return slot;
+            }
+        }
+        return null;
     }
 
     public Item GetSelectedItem(bool use)

@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6293b8faaa296f947b129ca31874c0e9, type: 3}
   m_Name: Banana
   m_EditorClassIdentifier: 
-  tile: {fileID: 0}
   image: {fileID: -7083142980055309943, guid: 21dd70caa47f7d048bc4945d62e642f3, type: 3}
   descriptionText: maybe this is a weapon?
-  type: 2
-  actionType: 2
   stackable: 1
+  type: 3
+  effectOnConsume:
+  - {fileID: 11400000, guid: 61787fe8e2c4bbc4f995acedbe5e4d03, type: 2}
