@@ -976,6 +976,66 @@ MonoBehaviour:
     m_Scale: 1
     m_AtlasIndex: 0
     m_ClassDefinitionType: 0
+  - m_Index: 239
+    m_Metrics:
+      m_Width: 28.9375
+      m_Height: 48.21875
+      m_HorizontalBearingX: 0
+      m_HorizontalBearingY: 48.21875
+      m_HorizontalAdvance: 33.75
+    m_GlyphRect:
+      m_X: 984
+      m_Y: 113
+      m_Width: 29
+      m_Height: 49
+    m_Scale: 1
+    m_AtlasIndex: 0
+    m_ClassDefinitionType: 0
+  - m_Index: 241
+    m_Metrics:
+      m_Width: 33.75
+      m_Height: 48.21875
+      m_HorizontalBearingX: 0
+      m_HorizontalBearingY: 48.21875
+      m_HorizontalAdvance: 38.578125
+    m_GlyphRect:
+      m_X: 160
+      m_Y: 262
+      m_Width: 34
+      m_Height: 49
+    m_Scale: 1
+    m_AtlasIndex: 0
+    m_ClassDefinitionType: 0
+  - m_Index: 238
+    m_Metrics:
+      m_Width: 33.75
+      m_Height: 48.21875
+      m_HorizontalBearingX: 0
+      m_HorizontalBearingY: 48.21875
+      m_HorizontalAdvance: 38.578125
+    m_GlyphRect:
+      m_X: 92
+      m_Y: 282
+      m_Width: 34
+      m_Height: 49
+    m_Scale: 1
+    m_AtlasIndex: 0
+    m_ClassDefinitionType: 0
+  - m_Index: 235
+    m_Metrics:
+      m_Width: 28.9375
+      m_Height: 48.21875
+      m_HorizontalBearingX: 0
+      m_HorizontalBearingY: 48.21875
+      m_HorizontalAdvance: 33.75
+    m_GlyphRect:
+      m_X: 984
+      m_Y: 181
+      m_Width: 29
+      m_Height: 49
+    m_Scale: 1
+    m_AtlasIndex: 0
+    m_ClassDefinitionType: 0
   m_CharacterTable:
   - m_ElementType: 1
     m_Unicode: 32
@@ -1448,38 +1508,10 @@ MonoBehaviour:
     m_Y: 145
     m_Width: 14
     m_Height: 59
-  - m_X: 150
-    m_Y: 204
-    m_Width: 4
-    m_Height: 819
-  - m_X: 0
-    m_Y: 291
-    m_Width: 1023
-    m_Height: 732
-  - m_X: 82
-    m_Y: 213
-    m_Width: 5
-    m_Height: 810
-  - m_X: 44
-    m_Y: 281
-    m_Width: 979
-    m_Height: 742
   - m_X: 44
     m_Y: 223
     m_Width: 9
     m_Height: 800
-  - m_X: 1003
-    m_Y: 68
-    m_Width: 20
-    m_Height: 955
-  - m_X: 959
-    m_Y: 103
-    m_Width: 64
-    m_Height: 38
-  - m_X: 974
-    m_Y: 103
-    m_Width: 49
-    m_Height: 920
   - m_X: 540
     m_Y: 68
     m_Width: 212

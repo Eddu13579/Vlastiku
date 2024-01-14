@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 40452c7be0bdfc340a8e52893e1278f4, type: 3}
+  m_Name: HermesBoots
+  m_EditorClassIdentifier: 
+  image: {fileID: -888595130953005156, guid: 3f0c73f40e1dbe142981b7ba5ec16d97, type: 3}
+  descriptionText: 
+  stackable: 0
+  type: 1
+  armorType: 3
+  effectWhenWearing:
+  - {fileID: 11400000, guid: 13753442c9f95dd488f1be4eae74161c, type: 2}

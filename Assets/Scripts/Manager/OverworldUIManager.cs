@@ -29,7 +29,7 @@ public class OverworldUIManager : MonoBehaviour
     [SerializeField]
     public GameObject TooltipMenu;
     [SerializeField]
-    public GameObject ActionMenu;
+    public GameObject ActionMenuCanvas;
 
     [SerializeField]
     GameObject resumeButton;
@@ -80,7 +80,7 @@ public class OverworldUIManager : MonoBehaviour
         actionText.SetActive(false);
 
         TooltipMenu.SetActive(false);
-        ActionMenu.SetActive(false);
+        ActionMenuCanvas.GetComponent<ActionMenu>().ActionMenuLayout.SetActive(false);
 
         healthbarHintergrund.GetComponent<Image>().sprite = null;
 
