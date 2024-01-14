@@ -16,6 +16,7 @@ public class InventoryManager : MonoBehaviour
     private void Start()
     {
         ChangeSelectedSlot(0);
+        Inventory = new InventoryItem[inventoryMaxSize];
     }
 
     public void ChangeSelectedSlot(int newValue)
@@ -91,6 +92,7 @@ public class InventoryManager : MonoBehaviour
         GameObject newItemGo = Instantiate(inventoryItemPrefab, slot.transform);
         InventoryItem inventoryItem = newItemGo.GetComponent<InventoryItem>();
         inventoryItem.InitialiseItem(item);
+
         for(int i = 0; i < inventoryMaxSize; i++)
         {
             if(Inventory[i] == null)
