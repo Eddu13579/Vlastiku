@@ -13,8 +13,6 @@ public class Item : ScriptableObject
     public bool stackable = true;
 
     public ItemType type;
-
-    public Effect[] effectOnConsume;
 }
 
 public enum ItemType

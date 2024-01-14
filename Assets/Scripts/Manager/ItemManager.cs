@@ -7,7 +7,9 @@ public class ItemManager : MonoBehaviour
     public int itemIDCount = 0;
     Item[] allItems;
 
+    public Item[] Weapons;
     public Item[] Foods;
+    public Item[] Armor;
 
     private void Start()
     {

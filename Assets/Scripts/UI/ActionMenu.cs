@@ -46,11 +46,11 @@ public class ActionMenu : MonoBehaviour
         Reposition();
         isFixed = newIsFixed;
     }
-    public void setActive(bool active)
+    public void setMenuActive(bool active)
     {
         gameObject.SetActive(active);
 
-        showAllActionButtons(active);
+        showActiveActionButtons();
     }
 
     public void addAction(ActionButtonAction newAction)
@@ -74,12 +74,6 @@ public class ActionMenu : MonoBehaviour
         {
             ActionButtons[i].GetComponentInChildren<Button>().onClick.RemoveAllListeners();
             areActionButtonsActive[i] = false;
-        }
-    }
-    public void showAllActionButtons(bool newAreActionButtonsShown)
-    {
-        for (int i = 0; i < ActionButtons.Length; i++) {
-            ActionButtons[i].SetActive(newAreActionButtonsShown);
         }
     }
     public void showActiveActionButtons() //unnötig?

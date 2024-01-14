@@ -9,11 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6293b8faaa296f947b129ca31874c0e9, type: 3}
-  m_Name: Coconut
+  m_Script: {fileID: 11500000, guid: c4dce3b94c9e17540909ef3cddb15040, type: 3}
+  m_Name: Banana
   m_EditorClassIdentifier: 
-  image: {fileID: -7314877363680337046, guid: 21dd70caa47f7d048bc4945d62e642f3, type: 3}
-  descriptionText: 
+  image: {fileID: -7083142980055309943, guid: 21dd70caa47f7d048bc4945d62e642f3, type: 3}
+  descriptionText: Maybe this is a weapon?
   stackable: 1
   type: 3
-  effectOnConsume: []
+  effectOnConsume:
+  - {fileID: 11400000, guid: 61787fe8e2c4bbc4f995acedbe5e4d03, type: 2}

@@ -36,6 +36,8 @@ public class Player : MonoBehaviour
     public float currentHealth = 100;
     public float maximumHealth = 100;
 
+    public int resistance = 0;
+
     public float jumpStrength = 750;
     public float walkingSpeed = 4f;
     public float sprintingSpeed = 7f;

@@ -31,15 +31,32 @@ public class InventorySlot : MonoBehaviour, IDropHandler
 
     public void OnDrop(PointerEventData eventData)
     {
-        if(transform.childCount == 0)
+        if (transform.childCount == 0) //wenn leer
         {
             InventoryItem inventoryItem = eventData.pointerDrag.GetComponent<InventoryItem>();
-            if (category == ItemType.Everything || category == inventoryItem.item.type)
+            if (category == ItemType.Everything)
             {
                 inventoryItem.parentAfterDrag = transform;
-            } else
+                InventoryManager.disableItemEffects(inventoryItem.item);
+            }
+            else if (category == inventoryItem.item.type)
             {
-                inventoryItem.parentAfterDrag = InventoryManager.findNextSuitableSlot(inventoryItem.item).transform;
+                inventoryItem.parentAfterDrag = transform;
+                InventoryManager.applyItemEffects(inventoryItem.item);
+            }
+            else
+            {
+                InventorySlot nextSuitableSlot = InventoryManager.findNextSuitableSlot(inventoryItem.item);
+                inventoryItem.parentAfterDrag = nextSuitableSlot.transform;
+
+                if (nextSuitableSlot.category == inventoryItem.item.type)
+                {
+                    InventoryManager.applyItemEffects(inventoryItem.item);
+                }
+                else
+                {
+                    InventoryManager.disableItemEffects(inventoryItem.item);
+                }
             }
         }
     }

@@ -29,29 +29,38 @@ public class InventoryManager : MonoBehaviour
         selectedSlot = newValue;
     }
 
+    //hier werden auch persistenEffects geaddet
     public bool AddItem(Item itemToAdd) //effizienter machen!!!! array mit verschiedenen kategorien speichern (inventoryWeapon, InventoryArmor) und durchgehen als ein Array mit allen
     {
         for (int i = 0; i < inventorySlots.Length; i++)
         {
             InventorySlot slot = inventorySlots[i];
             InventoryItem itemInSlot = slot.GetComponentInChildren<InventoryItem>();
-            if(slot.category == ItemType.Everything || slot.category == itemToAdd.type)
+            if (slot.category == ItemType.Everything || slot.category == itemToAdd.type)
             {
                 if (itemInSlot != null && itemInSlot.item == itemToAdd && itemInSlot.count < maxStackedItems && itemInSlot.item.stackable == true)
                 {
                     itemInSlot.count++;
                     itemInSlot.RefreshCount();
+
                     return true;
                 }
             }
         }
 
         InventorySlot suitableSlot = findNextSuitableSlot(itemToAdd);
-        if(suitableSlot != null)
+        if (suitableSlot != null)
         {
             SpawnNewItem(itemToAdd, suitableSlot);
+
+            if (suitableSlot.category == itemToAdd.type)
+            {
+                applyItemEffects(itemToAdd);
+            }
+
             return true;
-        } else
+        }
+        else
         {
             return false;
         }
@@ -74,6 +83,12 @@ public class InventoryManager : MonoBehaviour
                 {
                     itemInSlot.RefreshCount();
                 }
+
+                if (slot.category == itemInSlot.item.type)
+                {
+                    disableItemEffects(itemInSlot.item);
+                }
+
                 break;
             }
         }
@@ -88,18 +103,50 @@ public class InventoryManager : MonoBehaviour
         }
     }
 
-    void SpawnNewItem(Item item, InventorySlot slot) //hier wird NICHT gecheckt ob der Slot die richtige Kategorie hat, das passiert in AddItem()/findNextSuitableSlot
+    void SpawnNewItem(Item itemToSpawn, InventorySlot slot) //hier wird NICHT gecheckt ob der Slot die richtige Kategorie hat, das passiert in AddItem()/findNextSuitableSlot
     {
         GameObject newItemGo = Instantiate(inventoryItemPrefab, slot.transform);
-        InventoryItem inventoryItem = newItemGo.GetComponent<InventoryItem>();
-        inventoryItem.InitialiseItem(item);
 
-        for(int i = 0; i < inventoryMaxSize; i++)
+        if (slot.category == itemToSpawn.type)
         {
-            if(Inventory[i] == null)
+            applyItemEffects(itemToSpawn);
+        }
+
+        InventoryItem inventoryItem = newItemGo.GetComponent<InventoryItem>();
+        inventoryItem.InitialiseItem(itemToSpawn);
+
+        for (int i = 0; i < inventoryMaxSize; i++)
+        {
+            if (Inventory[i] == null)
             {
                 Inventory[i] = inventoryItem;
                 break;
+            }
+        }
+    }
+
+    public void applyItemEffects(Item itemWithEffects) //schauen wo aufgerufen
+    {
+        if (itemWithEffects.type == ItemType.Armor)
+        {
+            Armor itemToAddSword = (Armor)itemWithEffects;
+
+            for (int i = 0; i < itemToAddSword.effectWhenWearing.Length; i++)
+            {
+                itemToAddSword.effectWhenWearing[i].giveEffect();
+            }
+        }
+    }
+
+    public void disableItemEffects(Item itemWithEffects) //schauen wo aufgerufen
+    {
+        if (itemWithEffects.type == ItemType.Armor)
+        {
+            Armor itemToAddSword = (Armor)itemWithEffects;
+
+            for (int i = 0; i < itemToAddSword.effectWhenWearing.Length; i++)
+            {
+                itemToAddSword.effectWhenWearing[i].removeEffect();
             }
         }
     }
@@ -110,9 +157,12 @@ public class InventoryManager : MonoBehaviour
         {
             InventorySlot slot = inventorySlots[i];
             InventoryItem itemInSlot = slot.GetComponentInChildren<InventoryItem>();
-            if (itemInSlot == null && slot.category == ItemType.Everything || slot.category == item.type)
+            if (itemInSlot == null)
             {
-                return slot;
+                if (slot.category == ItemType.Everything || slot.category == item.type)
+                {
+                    return slot;
+                }
             }
         }
         return null;

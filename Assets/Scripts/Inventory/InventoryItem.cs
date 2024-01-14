@@ -69,10 +69,11 @@ public class InventoryItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
         {
             if (item.type == ItemType.Consumable)
             {
-                ActionMenu.addAction(new Consume(this, item.effectOnConsume));
+                Consumable itemConsumable = (Consumable)item;
+                ActionMenu.addAction(new Consume(this, itemConsumable.effectOnConsume));
             }
             ActionMenu.addAction(new Drop(this));
-            ActionMenu.setActive(true);
+            ActionMenu.setMenuActive(true);
             ActionMenu.fixScreenPosition(true);
         }
     }

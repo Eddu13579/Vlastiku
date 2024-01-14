@@ -24,7 +24,7 @@ public abstract class ActionButtonAction
     {
         ActionMenu.fixScreenPosition(false);
         OverworldUIManager.ActionMenu.GetComponent<ActionMenu>().removeActions();
-        OverworldUIManager.ActionMenu.GetComponent<ActionMenu>().setActive(false);
+        OverworldUIManager.ActionMenu.GetComponent<ActionMenu>().setMenuActive(false);
     }
 }
 public class Consume : ActionButtonAction
