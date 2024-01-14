@@ -11,12 +11,13 @@ public class Item : ScriptableObject
     public Sprite image;
     public string descriptionText;
 
+    public Effect effectOnConsume;
+
     public ItemType type;
     public ActionType actionType;
 
     public bool stackable = true;
 
-    
 }
 
 public enum ItemType

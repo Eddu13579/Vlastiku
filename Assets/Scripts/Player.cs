@@ -183,6 +183,27 @@ public class Player : MonoBehaviour
             currentlyHoldingWeapon = new Sword("Longsword", 20, 5f, 5f, 2f);
         }
     }
+
+    public void heal(int healAmount)
+    {
+        if(currentHealth + healAmount >= maximumHealth)
+        {
+            currentHealth = currentHealth + (currentHealth + healAmount - maximumHealth);
+        } else
+        {
+            currentHealth += healAmount;
+        }
+    }
+    public void damage(int damageAmount)
+    {
+        currentHealth -= damageAmount;
+
+        if(currentHealth <= 0)
+        {
+            GameOver();
+        }
+    }
+
     public void Attack()
     {
         if (currentlyHoldingWeapon.isSword)
@@ -199,6 +220,11 @@ public class Player : MonoBehaviour
         {
             Instantiate(bulletPrefab, rb.position, Quaternion.identity); //GameObject bullet = 
         }
+    }
+
+    public void GameOver()
+    {
+
     }
 
     private void OnTriggerEnter2D(Collider2D collision)  //für GameObject mit LAYERN

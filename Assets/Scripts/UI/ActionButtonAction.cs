@@ -4,14 +4,17 @@ using UnityEngine;
 
 public abstract class ActionButtonAction
 {
-    public Item item;
+    public InventoryItem item;
     public string actionButtonText;
     public OverworldUIManager OverworldUIManager;
+    public InventoryManager InventoryManager;
     public ActionMenu ActionMenu;
 
-    public ActionButtonAction()
+    public ActionButtonAction(InventoryItem newItem)
     {
+        item = newItem;
         OverworldUIManager = GameObject.FindGameObjectWithTag("OverworldUIManager").GetComponent<OverworldUIManager>();
+        InventoryManager = GameObject.FindGameObjectWithTag("InventoryManager").GetComponent<InventoryManager>();
         ActionMenu = OverworldUIManager.ActionMenu.GetComponent<ActionMenu>();
     }
     public abstract void action();
@@ -24,19 +27,23 @@ public abstract class ActionButtonAction
 }
 public class Consume : ActionButtonAction
 {
-    public Consume() : base()
+    public Effect effect;
+    public Consume(InventoryItem newItem, Effect newEffect) : base(newItem)
     {
+        effect = newEffect;
         actionButtonText = "Consume";
     }
 
     public override void action()
     {
+        effect.giveEffect();
+        InventoryManager.DeleteItem(item);
         hideActionMenu();
     }
 }
 public class Drop : ActionButtonAction
 {
-    public Drop() : base()
+    public Drop(InventoryItem newItem) : base(newItem)
     {
         actionButtonText = "Drop";
     }

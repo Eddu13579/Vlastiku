@@ -10,8 +10,10 @@ public class InventoryItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     public Text countText;
     TooltipMenu TooltipMenu;
     ActionMenu ActionMenu;
+    ItemManager ItemManager;
 
     [HideInInspector] public Item item;
+    [HideInInspector] public int ID;
     [HideInInspector] public int count = 1;
     [HideInInspector] public Transform parentAfterDrag;
 
@@ -19,11 +21,14 @@ public class InventoryItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     {
         TooltipMenu = GameObject.FindGameObjectWithTag("OverworldUIManager").GetComponent<OverworldUIManager>().TooltipMenu.GetComponent<TooltipMenu>();
         ActionMenu = GameObject.FindGameObjectWithTag("OverworldUIManager").GetComponent<OverworldUIManager>().ActionMenu.GetComponent<ActionMenu>();
+        ItemManager = GameObject.FindGameObjectWithTag("ItemManager").GetComponent<ItemManager>();
     }
 
     public void InitialiseItem(Item newItem)
     {
         item = newItem;
+        ID = ItemManager.itemIDCount;
+        ItemManager.itemIDCount++;
         image.sprite = newItem.image;
         RefreshCount();
     }
@@ -57,8 +62,8 @@ public class InventoryItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     {
         if (eventData.button == PointerEventData.InputButton.Right)
         {
-            ActionMenu.changeAction1(new Consume());
-            ActionMenu.changeAction2(new Drop());
+            ActionMenu.changeAction1(new Consume(this, new Damage(10)));
+            ActionMenu.changeAction2(new Drop(this));
             ActionMenu.setActive(true);
             ActionMenu.fixScreenPosition(true);
         }

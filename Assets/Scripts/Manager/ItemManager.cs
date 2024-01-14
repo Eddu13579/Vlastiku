@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class ItemManager : MonoBehaviour
 {
+    public int itemIDCount = 0;
     Item[] allItems;
 
     public Item[] Foods;
