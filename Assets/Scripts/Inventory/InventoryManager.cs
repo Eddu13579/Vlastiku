@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class InventoryManager : MonoBehaviour
 {
+    public InventoryItem[] Inventory;
+    public int inventoryMaxSize = 23;
+
     public int maxStackedItems = 16;
     public InventorySlot[] inventorySlots;
     public GameObject inventoryItemPrefab;
@@ -72,6 +75,15 @@ public class InventoryManager : MonoBehaviour
                 break;
             }
         }
+
+        for (int i = 0; i < inventoryMaxSize; i++)
+        {
+            if (Inventory[i] == itemToDelete)
+            {
+                Inventory[i] = null;
+                break;
+            }
+        }
     }
 
     void SpawnNewItem(Item item, InventorySlot slot)
@@ -79,6 +91,14 @@ public class InventoryManager : MonoBehaviour
         GameObject newItemGo = Instantiate(inventoryItemPrefab, slot.transform);
         InventoryItem inventoryItem = newItemGo.GetComponent<InventoryItem>();
         inventoryItem.InitialiseItem(item);
+        for(int i = 0; i < inventoryMaxSize; i++)
+        {
+            if(Inventory[i] == null)
+            {
+                Inventory[i] = inventoryItem;
+                break;
+            }
+        }
     }
 
     public Item GetSelectedItem(bool use)

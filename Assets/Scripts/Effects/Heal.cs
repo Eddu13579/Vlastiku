@@ -11,7 +11,7 @@ public class Heal : Effect
     }
     public override void giveEffect()
     {
-        playerScript = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+        playerScript = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>(); //siehe Konstruktor Hauptklasse
         playerScript.heal(value);
     }
 }

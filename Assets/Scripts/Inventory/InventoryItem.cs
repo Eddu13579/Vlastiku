@@ -32,6 +32,7 @@ public class InventoryItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
         {
             ItemManager = GameObject.FindGameObjectWithTag("ItemManager").GetComponent<ItemManager>();
         }
+
         ID = ItemManager.itemIDCount;
         ItemManager.itemIDCount++;
         image.sprite = newItem.image;
@@ -44,7 +45,6 @@ public class InventoryItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
         bool textActive = count > 1;
         countText.gameObject.SetActive(textActive);
     }
-
 
     public void OnBeginDrag(PointerEventData eventData)
     {

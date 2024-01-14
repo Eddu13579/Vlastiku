@@ -5,7 +5,7 @@ using UnityEngine;
 public abstract class Effect : ScriptableObject //jeder neuer Effekt in neue Klasse
 {
     public int value;
-    public int duration; //0 = instant
+    public int duration = 0; //0 = instant
     [HideInInspector] public Player playerScript;
 
     public Effect()
