@@ -27,6 +27,11 @@ public class InventoryItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     public void InitialiseItem(Item newItem)
     {
         item = newItem;
+
+        if(ItemManager == null) //sicherstellen, das Itemmanager geladen wird -> besser machen
+        {
+            ItemManager = GameObject.FindGameObjectWithTag("ItemManager").GetComponent<ItemManager>();
+        }
         ID = ItemManager.itemIDCount;
         ItemManager.itemIDCount++;
         image.sprite = newItem.image;
@@ -48,9 +53,9 @@ public class InventoryItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
         transform.SetParent(transform.root);
     }
 
-    public void OnDrag(PointerEventData eventData) 
+    public void OnDrag(PointerEventData eventData)
     {
-        transform.position = Input.mousePosition; 
+        transform.position = Input.mousePosition;
     }
 
     public void OnEndDrag(PointerEventData eventData)
@@ -62,8 +67,11 @@ public class InventoryItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     {
         if (eventData.button == PointerEventData.InputButton.Right)
         {
-            ActionMenu.changeAction1(new Consume(this, new Damage(10)));
-            ActionMenu.changeAction2(new Drop(this));
+            if (item.type == ItemType.Consumable)
+            {
+                ActionMenu.addAction(new Consume(this, item.effectOnConsume));
+            }
+            ActionMenu.addAction(new Drop(this));
             ActionMenu.setActive(true);
             ActionMenu.fixScreenPosition(true);
         }

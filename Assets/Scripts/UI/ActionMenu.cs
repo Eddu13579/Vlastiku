@@ -7,9 +7,9 @@ using UnityEngine.UI;
 public class ActionMenu : MonoBehaviour
 {
     [SerializeField]
-    GameObject ActionButton1;
-    [SerializeField]
-    GameObject ActionButton2;
+    GameObject[] ActionButtons;
+
+    bool[] areActionButtonsActive;
 
     RectTransform rectTransform;
 
@@ -18,10 +18,13 @@ public class ActionMenu : MonoBehaviour
     private void Start()
     {
         rectTransform = gameObject.GetComponent<RectTransform>();
-    }
-    private void Update()
-    {
-        Reposition();
+
+        areActionButtonsActive = new bool[ActionButtons.Length];
+
+        for (int i = 0; i < areActionButtonsActive.Length; i++)
+        {
+            areActionButtonsActive[i] = false;
+        }
     }
 
     public void Reposition()
@@ -46,29 +49,44 @@ public class ActionMenu : MonoBehaviour
     public void setActive(bool active)
     {
         gameObject.SetActive(active);
+
+        showAllActionButtons(active);
     }
 
-    public void changeAction1(ActionButtonAction newAction1)
+    public void addAction(ActionButtonAction newAction)
     {
-        ActionButton1.GetComponentInChildren<Button>().onClick.RemoveAllListeners();
-        ActionButton1.GetComponentInChildren<Button>().onClick.AddListener(newAction1.action);
-        changeActionButton1Text(newAction1.actionButtonText);
+        for (int i = 0; i < ActionButtons.Length; i++)
+        {
+            if (areActionButtonsActive[i] == false)
+            {
+                ActionButtons[i].GetComponentInChildren<Button>().onClick.RemoveAllListeners();
+                ActionButtons[i].GetComponentInChildren<Button>().onClick.AddListener(newAction.action);
+                ActionButtons[i].GetComponentInChildren<TextMeshProUGUI>().text = newAction.actionButtonText;
+                areActionButtonsActive[i] = true;
+                ActionButtons[i].SetActive(areActionButtonsActive[i]);
+                break;
+            }
+        }
     }
-
-    public void changeAction2(ActionButtonAction newAction2)
+    public void removeActions()
     {
-        ActionButton2.GetComponentInChildren<Button>().onClick.RemoveAllListeners();
-        ActionButton2.GetComponentInChildren<Button>().onClick.AddListener(newAction2.action);
-        changeActionButton2Text(newAction2.actionButtonText);
+        for (int i = 0; i < ActionButtons.Length; i++)
+        {
+            ActionButtons[i].GetComponentInChildren<Button>().onClick.RemoveAllListeners();
+            areActionButtonsActive[i] = false;
+        }
     }
-
-    public void changeActionButton1Text(string newActionButton1Text)
+    public void showAllActionButtons(bool newAreActionButtonsShown)
     {
-        ActionButton1.GetComponentInChildren<TextMeshProUGUI>().text = newActionButton1Text;
+        for (int i = 0; i < ActionButtons.Length; i++) {
+            ActionButtons[i].SetActive(newAreActionButtonsShown);
+        }
     }
-
-    public void changeActionButton2Text(string newActionButton2Text)
+    public void showActiveActionButtons() //unnötig?
     {
-        ActionButton2.GetComponentInChildren<TextMeshProUGUI>().text = newActionButton2Text;
+        for (int i = 0; i < ActionButtons.Length; i++)
+        {
+            ActionButtons[i].SetActive(areActionButtonsActive[i]);
+        }
     }
 }

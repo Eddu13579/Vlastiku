@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
 public abstract class ActionButtonAction
 {
     public InventoryItem item;
@@ -22,13 +21,14 @@ public abstract class ActionButtonAction
     public void hideActionMenu()
     {
         ActionMenu.fixScreenPosition(false);
+        OverworldUIManager.ActionMenu.GetComponent<ActionMenu>().removeActions();
         OverworldUIManager.ActionMenu.GetComponent<ActionMenu>().setActive(false);
     }
 }
 public class Consume : ActionButtonAction
 {
-    public Effect effect;
-    public Consume(InventoryItem newItem, Effect newEffect) : base(newItem)
+    public Effect[] effect;
+    public Consume(InventoryItem newItem, Effect[] newEffect) : base(newItem)
     {
         effect = newEffect;
         actionButtonText = "Consume";
@@ -36,11 +36,21 @@ public class Consume : ActionButtonAction
 
     public override void action()
     {
-        effect.giveEffect();
+        if (effect != null)
+        {
+            for (int i = 0; i < effect.Length; i++)
+            {
+                if (effect[i] != null)
+                {
+                    effect[i].giveEffect();
+                }
+            }
+        }
         InventoryManager.DeleteItem(item);
         hideActionMenu();
     }
 }
+
 public class Drop : ActionButtonAction
 {
     public Drop(InventoryItem newItem) : base(newItem)
@@ -49,7 +59,6 @@ public class Drop : ActionButtonAction
     }
     public override void action()
     {
-        ActionMenu.fixScreenPosition(false);
         hideActionMenu();
     }
 }

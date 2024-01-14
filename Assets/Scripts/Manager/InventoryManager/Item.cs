@@ -11,10 +11,9 @@ public class Item : ScriptableObject
     public Sprite image;
     public string descriptionText;
 
-    public Effect effectOnConsume;
+    public Effect[] effectOnConsume;
 
     public ItemType type;
-    public ActionType actionType;
 
     public bool stackable = true;
 
@@ -22,14 +21,5 @@ public class Item : ScriptableObject
 
 public enum ItemType
 {
-    Tool,
-    Usable,
     Consumable
-}
-
-public enum ActionType
-{
-    Attack,
-    Use,
-    Consume
 }

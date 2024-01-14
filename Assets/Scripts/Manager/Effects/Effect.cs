@@ -2,11 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract  class Effect
+public abstract class Effect : ScriptableObject //jeder neuer Effekt in neue Klasse
 {
     public int value;
     public int duration; //0 = instant
-    public Player playerScript;
+    [HideInInspector] public Player playerScript;
 
     public Effect()
     {
@@ -16,17 +16,7 @@ public abstract  class Effect
     public abstract void giveEffect();
 }
 
-public class Heal : Effect
-{
-    public Heal(int newValue): base() {
-        value = newValue;
-    }
-    public override void giveEffect()
-    {
-        playerScript.heal(value);
-    }
-}
-public class Regeneration : Effect
+public class Regeneration : Effect //IN EIGENE KLASSE
 {
     public Regeneration() : base() { }
     public override void giveEffect()
@@ -34,19 +24,8 @@ public class Regeneration : Effect
 
     }
 }
-public class Damage : Effect
-{
-    public Damage(int newValue) : base()
-    {
-        value = newValue;
-    }
-    public override void giveEffect()
-    {
-        playerScript.damage(value);
-    }
-}
 
-public class Poison : Effect
+public class Poison : Effect //IN EIGENE KLASSE
 {
     public Poison() : base() { }
     public override void giveEffect()
