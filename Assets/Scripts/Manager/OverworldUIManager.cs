@@ -175,7 +175,7 @@ public class OverworldUIManager : MonoBehaviour
 
     void healthBarUpdate()
     {
-        healthText.text = playerScript.currentHealth + ("/") + playerScript.maximumHealth;
+        healthText.text = ("  ") + playerScript.currentHealth + ("/") + playerScript.maximumHealth;
 
         healthSlider.maxValue = playerScript.maximumHealth;
         healthSlider.value = playerScript.currentHealth;
