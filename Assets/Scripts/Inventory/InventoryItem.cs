@@ -20,7 +20,7 @@ public class InventoryItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     void Awake()
     {
         TooltipMenu = GameObject.FindGameObjectWithTag("OverworldUIManager").GetComponent<OverworldUIManager>().TooltipMenu.GetComponent<TooltipMenu>();
-        ActionMenu = GameObject.FindGameObjectWithTag("OverworldUIManager").GetComponent<OverworldUIManager>().ActionMenu.GetComponent<ActionMenu>();
+        ActionMenu = GameObject.FindGameObjectWithTag("OverworldUIManager").GetComponent<OverworldUIManager>().ActionMenuCanvas.GetComponent<ActionMenu>();
         ItemManager = GameObject.FindGameObjectWithTag("ItemManager").GetComponent<ItemManager>();
     }
 
@@ -67,22 +67,23 @@ public class InventoryItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     {
         if (eventData.button == PointerEventData.InputButton.Right)
         {
-            if (item.type == ItemType.Consumable)
+            if (ActionMenu.isFixed == false) //damit nur ein ActionMenu geöffnet werden kann
             {
-                Consumable itemConsumable = (Consumable)item;
-                ActionMenu.addAction(new Consume(this, itemConsumable.effectOnConsume));
+                if (item.type == ItemType.Consumable)
+                {
+                    Consumable itemConsumable = (Consumable)item;
+                    ActionMenu.addAction(new Consume(this, itemConsumable.effectOnConsume));
+                }
+                ActionMenu.addAction(new Drop(this));
+                ActionMenu.setMenuActive(true);
+                ActionMenu.fixScreenPosition(true);
             }
-            ActionMenu.addAction(new Drop(this));
-            ActionMenu.setMenuActive(true);
-            ActionMenu.fixScreenPosition(true);
         }
     }
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        TooltipMenu.changeHeaderText(item.name);
-        TooltipMenu.changeDescriptionText(item.descriptionText);
-        TooltipMenu.setActive(true);
+        TooltipMenu.changeDisplayedItem(item);
     }
 
     public void OnPointerExit(PointerEventData eventData)

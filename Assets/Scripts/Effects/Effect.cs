@@ -6,30 +6,11 @@ public abstract class Effect : ScriptableObject //jeder neuer Effekt in neue Kla
 {
     public int value;
     public int duration = 0; //0 = instant
+
+    public string TooltipDescription;
+    public bool isShownInTooltip = true;
+
     [HideInInspector] public Player playerScript;
 
-    public Effect()
-    {
-        playerScript = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
-    }
-
     public abstract void giveEffect();
-}
-
-public class Regeneration : Effect //IN EIGENE KLASSE
-{
-    public Regeneration() : base() { }
-    public override void giveEffect()
-    {
-
-    }
-}
-
-public class Poison : Effect //IN EIGENE KLASSE
-{
-    public Poison() : base() { }
-    public override void giveEffect()
-    {
-
-    }
 }

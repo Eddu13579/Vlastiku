@@ -16,15 +16,15 @@ public abstract class ActionButtonAction
         OverworldUIManager = GameObject.FindGameObjectWithTag("OverworldUIManager").GetComponent<OverworldUIManager>();
         InventoryManager = GameObject.FindGameObjectWithTag("InventoryManager").GetComponent<InventoryManager>();
         playerScript = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
-        ActionMenu = OverworldUIManager.ActionMenu.GetComponent<ActionMenu>();
+        ActionMenu = OverworldUIManager.ActionMenuCanvas.GetComponent<ActionMenu>();
     }
     public abstract void action();
 
     public void hideActionMenu()
     {
         ActionMenu.fixScreenPosition(false);
-        OverworldUIManager.ActionMenu.GetComponent<ActionMenu>().removeActions();
-        OverworldUIManager.ActionMenu.GetComponent<ActionMenu>().setMenuActive(false);
+        OverworldUIManager.ActionMenuCanvas.GetComponent<ActionMenu>().removeActions();
+        OverworldUIManager.ActionMenuCanvas.GetComponent<ActionMenu>().setMenuActive(false);
     }
 }
 public class Consume : ActionButtonAction

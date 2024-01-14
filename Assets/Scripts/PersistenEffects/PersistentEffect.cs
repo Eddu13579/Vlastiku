@@ -6,6 +6,10 @@ public abstract class PersistentEffect : ScriptableObject //jeder neuer Effekt i
 {
     public int value;
     public bool isEffectGiven = false;
+
+    public string TooltipDescription;
+    public bool isShownInTooltip = true;
+
     [HideInInspector] public Player playerScript;
 
     public PersistentEffect()
