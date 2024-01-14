@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c4dce3b94c9e17540909ef3cddb15040, type: 3}
+  m_Name: Banana
+  m_EditorClassIdentifier: 
+  image: {fileID: -7083142980055309943, guid: 21dd70caa47f7d048bc4945d62e642f3, type: 3}
+  descriptionText: Maybe this is a weapon?
+  stackable: 1
+  type: 3
+  effectOnConsume:
+  - {fileID: 11400000, guid: 61787fe8e2c4bbc4f995acedbe5e4d03, type: 2}
