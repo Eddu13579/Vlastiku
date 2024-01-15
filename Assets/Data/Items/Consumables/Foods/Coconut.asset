@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Coconut
   m_EditorClassIdentifier: 
   image: {fileID: -7314877363680337046, guid: 21dd70caa47f7d048bc4945d62e642f3, type: 3}
-  descriptionText: 
+  descriptionText: '"Did this fall on someones head?"'
   stackable: 1
   type: 3
   effectOnConsume: []

@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   value: 20
   duration: 0
-  TooltipDescription: gibt dir 20 Schaden
+  TooltipDescription: Gibt dir 20 Schaden
   isShownInTooltip: 1
   playerScript: {fileID: 0}

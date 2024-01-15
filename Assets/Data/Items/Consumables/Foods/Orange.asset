@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Orange
   m_EditorClassIdentifier: 
   image: {fileID: 7398490786429075554, guid: 21dd70caa47f7d048bc4945d62e642f3, type: 3}
-  descriptionText: 
+  descriptionText: '"No clementine or mandarine. Orange"'
   stackable: 1
   type: 3
   effectOnConsume: []

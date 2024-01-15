@@ -9,11 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c4dce3b94c9e17540909ef3cddb15040, type: 3}
-  m_Name: Watermelon
+  m_Script: {fileID: 11500000, guid: 12781bd4d2a385741ba516a85b6baa46, type: 3}
+  m_Name: Damage70
   m_EditorClassIdentifier: 
-  image: {fileID: -2955796112142422324, guid: 21dd70caa47f7d048bc4945d62e642f3, type: 3}
-  descriptionText: '"Pizza slice'
-  stackable: 1
-  type: 3
-  effectOnConsume: []
+  value: 70
+  duration: 0
+  TooltipDescription: '"Tu es nicht"'
+  isShownInTooltip: 1
+  playerScript: {fileID: 0}

@@ -21,5 +21,7 @@ public enum ItemType
     Armor,
     Equipment,
     Consumable,
+    Coin,
+    Ammunition,
     Everything
 }

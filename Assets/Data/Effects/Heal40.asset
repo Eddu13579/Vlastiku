@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   value: 40
   duration: 0
-  TooltipDescription: heilt 40 Leben
+  TooltipDescription: Heilt 40 Leben
   isShownInTooltip: 1
   playerScript: {fileID: 0}

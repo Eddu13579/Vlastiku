@@ -149,10 +149,14 @@ public class Player : MonoBehaviour
 
     public void startTalkingWithNPC() //nachdem man E gedrückt hast
     {
-         animator.SetBool("isAnswering", true);
-         nearestNPC.GetComponent<NPC>().startTalkingAnimation();
-         nearestNPC.GetComponent<NPC>().showActionText();
-         nearestNPC.GetComponent<NPC>().action();
+        animator.SetBool("isAnswering", true);
+        nearestNPC.GetComponent<NPC>().startTalkingAnimation();
+        nearestNPC.GetComponent<NPC>().showActionText();
+        nearestNPC.GetComponent<NPC>().action();
+        if (nearestNPC.GetComponent<NPC>().hasShop == true)
+        {
+            nearestNPC.GetComponent<NPC>().startDialog();
+        }
     }
     public void stopTalkingWithNPC() //wenn man weggeht
     {
