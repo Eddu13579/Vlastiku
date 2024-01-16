@@ -6,6 +6,8 @@ using UnityEngine;
 public class Consumable : Item
 {
     public Effect[] effectOnConsume;
+
+
     public Consumable()
     {
         type = ItemType.Consumable;
