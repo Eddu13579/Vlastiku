@@ -15105,7 +15105,7 @@ MonoBehaviour:
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1
   m_Colors:
-    m_NormalColor: {r: 0.6886792, g: 0.35802966, b: 0.009745443, a: 1}
+    m_NormalColor: {r: 1, g: 0.9764706, b: 0.9490196, a: 1}
     m_HighlightedColor: {r: 0.3962264, g: 0.3962264, b: 0.3962264, a: 1}
     m_PressedColor: {r: 1, g: 1, b: 1, a: 1}
     m_SelectedColor: {r: 0, g: 0.1254902, b: 1, a: 1}
@@ -17480,7 +17480,7 @@ MonoBehaviour:
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1
   m_Colors:
-    m_NormalColor: {r: 0.6886792, g: 0.35802966, b: 0.009745443, a: 1}
+    m_NormalColor: {r: 1, g: 0.9764706, b: 0.9490196, a: 1}
     m_HighlightedColor: {r: 0.39607844, g: 0.39607844, b: 0.39607844, a: 1}
     m_PressedColor: {r: 1, g: 1, b: 1, a: 1}
     m_SelectedColor: {r: 0, g: 0.1254902, b: 1, a: 1}
@@ -20485,6 +20485,7 @@ MonoBehaviour:
   inventorySlot: []
   items: []
   actionText: Press E to talk
+  dialog: []
   animator: {fileID: 772386600}
   inventoryManager: {fileID: 1962229112}
   OverworldUIManager: {fileID: 0}
@@ -22932,6 +22933,7 @@ MonoBehaviour:
   inventorySlot: []
   items: []
   actionText: Press E to talk
+  dialog: []
   animator: {fileID: 1141368065}
   inventoryManager: {fileID: 1962229112}
   OverworldUIManager: {fileID: 0}
@@ -24223,7 +24225,7 @@ MonoBehaviour:
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1
   m_Colors:
-    m_NormalColor: {r: 0.6886792, g: 0.35802966, b: 0.009745443, a: 1}
+    m_NormalColor: {r: 1, g: 0.9764706, b: 0.9490196, a: 1}
     m_HighlightedColor: {r: 0.39607844, g: 0.39607844, b: 0.39607844, a: 1}
     m_PressedColor: {r: 1, g: 1, b: 1, a: 1}
     m_SelectedColor: {r: 0, g: 0.1254902, b: 1, a: 1}
@@ -26468,7 +26470,7 @@ MonoBehaviour:
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1
   m_Colors:
-    m_NormalColor: {r: 0.6886792, g: 0.35802966, b: 0.009745443, a: 1}
+    m_NormalColor: {r: 1, g: 0.9764706, b: 0.9490196, a: 1}
     m_HighlightedColor: {r: 0.39607844, g: 0.39607844, b: 0.39607844, a: 1}
     m_PressedColor: {r: 1, g: 1, b: 1, a: 1}
     m_SelectedColor: {r: 0, g: 0.1254902, b: 1, a: 1}
@@ -27173,6 +27175,7 @@ MonoBehaviour:
   inventorySlot: []
   items: []
   actionText: Press E to talk
+  dialog: []
   animator: {fileID: 1751171376}
   inventoryManager: {fileID: 0}
   OverworldUIManager: {fileID: 0}
@@ -27645,7 +27648,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.6901961, g: 0.35686275, b: 0.007843138, a: 1}
+  m_Color: {r: 1, g: 0.974653, b: 0.9481132, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1

@@ -54,7 +54,7 @@ public class ActionMenu : MonoBehaviour, IPointerClickHandler
 
         showActiveActionButtons();
     }
-    public void OnPointerClick(PointerEventData eventData) //funktioniert
+    public void OnPointerClick(PointerEventData eventData) //funktioniert NICHT
     {
         if (eventData.button == PointerEventData.InputButton.Left)
         {
@@ -80,11 +80,11 @@ public class ActionMenu : MonoBehaviour, IPointerClickHandler
         {
             if (areActionButtonsActive[i] == false)
             {
+                areActionButtonsActive[i] = true;
                 ActionButtons[i].GetComponentInChildren<Button>().onClick.RemoveAllListeners();
                 ActionButtons[i].GetComponentInChildren<Button>().onClick.AddListener(newAction.action);
                 ActionButtons[i].GetComponentInChildren<TextMeshProUGUI>().text = newAction.actionButtonText;
-                areActionButtonsActive[i] = true;
-                ActionButtons[i].SetActive(areActionButtonsActive[i]);
+                ActionButtons[i].SetActive(true);
                 break;
             }
         }
@@ -93,11 +93,11 @@ public class ActionMenu : MonoBehaviour, IPointerClickHandler
     {
         for (int i = 0; i < ActionButtons.Length; i++)
         {
-            ActionButtons[i].GetComponentInChildren<Button>().onClick.RemoveAllListeners();
             areActionButtonsActive[i] = false;
+            ActionButtons[i].GetComponentInChildren<Button>().onClick.RemoveAllListeners();
         }
     }
-    public void showActiveActionButtons() //unnötig?
+    public void showActiveActionButtons()
     {
         for (int i = 0; i < ActionButtons.Length; i++)
         {

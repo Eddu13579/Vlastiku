@@ -4,11 +4,15 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class InventorySlot : MonoBehaviour, IDropHandler
+public class InventorySlot : MonoBehaviour, IDropHandler, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler, IPointerMoveHandler
 {
     public ItemType category;
 
+    public InventoryItem inventoryItem;
+
     InventoryManager InventoryManager;
+    ActionMenu ActionMenu;
+    TooltipMenu TooltipMenu;
 
     public Image image;
     public Color selectedColor, notSelectedColor;
@@ -16,7 +20,9 @@ public class InventorySlot : MonoBehaviour, IDropHandler
     private void Awake()
     {
         Deselect();
-        InventoryManager = GameObject.FindGameObjectWithTag("InventoryManager").GetComponent<InventoryManager>();
+        InventoryManager = GameObject.FindGameObjectWithTag("InventoryManager").GetComponent<InventoryManager>(); ;
+        ActionMenu = GameObject.FindGameObjectWithTag("OverworldUIManager").GetComponent<OverworldUIManager>().ActionMenuCanvas.GetComponent<ActionMenu>();
+        TooltipMenu = GameObject.FindGameObjectWithTag("OverworldUIManager").GetComponent<OverworldUIManager>().TooltipMenu.GetComponent<TooltipMenu>();
     }
 
     public void Select()
@@ -31,9 +37,9 @@ public class InventorySlot : MonoBehaviour, IDropHandler
 
     public void OnDrop(PointerEventData eventData)
     {
-        if (transform.childCount == 0) //wenn leer
+        if (transform.childCount == 0) //wenn nicht leer
         {
-            InventoryItem inventoryItem = eventData.pointerDrag.GetComponent<InventoryItem>();
+            inventoryItem = eventData.pointerDrag.GetComponent<InventoryItem>();
             if (category == ItemType.Everything)
             {
                 inventoryItem.parentAfterDrag = transform;
@@ -59,5 +65,41 @@ public class InventorySlot : MonoBehaviour, IDropHandler
                 }
             }
         }
+    }
+
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        if (eventData.button == PointerEventData.InputButton.Right)
+        {
+            if (ActionMenu.isFixed == false) //damit nur ein ActionMenu geöffnet werden kann
+            {
+                if (inventoryItem.item.type == ItemType.Consumable)
+                {
+                    Consumable itemConsumable = (Consumable)inventoryItem.item;
+                    ActionMenu.addAction(new Consume(inventoryItem, itemConsumable.effectOnConsume));
+                }
+                ActionMenu.addAction(new Drop(inventoryItem));
+                ActionMenu.setMenuActive(true);
+                ActionMenu.fixScreenPosition(true);
+            }
+        }
+    }
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        if (inventoryItem != null)
+        {
+            TooltipMenu.changeDisplayedItem(inventoryItem.item);
+        }
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        TooltipMenu.setActive(false);
+    }
+
+    public void OnPointerMove(PointerEventData eventData)
+    {
+        TooltipMenu.GetComponent<TooltipMenu>().Reposition();
     }
 }

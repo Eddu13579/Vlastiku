@@ -30,6 +30,11 @@ public class TooltipMenu : MonoBehaviour
     }
     private void Update()
     {
+        Reposition();
+    }
+
+    public void Reposition()
+    {
         Vector2 position = Input.mousePosition;
 
         float pivotX = position.x / Screen.width;
@@ -117,8 +122,8 @@ public class TooltipMenu : MonoBehaviour
     {
         for (int i = 0; i < TooltipEffectTexts.Length; i++)
         {
+            areTooltipEffectsTextActive[i] = newAreTooltipEffectsTextActive;
             TooltipEffectTexts[i].SetActive(newAreTooltipEffectsTextActive);
-            areTooltipEffectsTextActive[i] = false;
         }
     }
 }

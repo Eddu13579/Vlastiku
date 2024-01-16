@@ -112,8 +112,10 @@ public class InventoryManager : MonoBehaviour
             applyItemEffects(itemToSpawn);
         }
 
+
         InventoryItem inventoryItem = newItemGo.GetComponent<InventoryItem>();
-        inventoryItem.InitialiseItem(itemToSpawn);
+        inventoryItem.InitialiseItem(itemToSpawn, slot);
+        slot.inventoryItem = inventoryItem;
 
         for (int i = 0; i < inventoryMaxSize; i++)
         {

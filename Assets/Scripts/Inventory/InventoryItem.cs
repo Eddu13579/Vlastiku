@@ -4,13 +4,13 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
-public class InventoryItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
+public class InventoryItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler, IPointerEnterHandler, IPointerExitHandler, IPointerMoveHandler
 {
     public Image image;
     public Text countText;
-    TooltipMenu TooltipMenu;
-    ActionMenu ActionMenu;
+    public InventorySlot slot;
     ItemManager ItemManager;
+    TooltipMenu TooltipMenu;
 
     [HideInInspector] public Item item;
     [HideInInspector] public int ID;
@@ -19,14 +19,14 @@ public class InventoryItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
 
     void Awake()
     {
-        TooltipMenu = GameObject.FindGameObjectWithTag("OverworldUIManager").GetComponent<OverworldUIManager>().TooltipMenu.GetComponent<TooltipMenu>();
-        ActionMenu = GameObject.FindGameObjectWithTag("OverworldUIManager").GetComponent<OverworldUIManager>().ActionMenuCanvas.GetComponent<ActionMenu>();
         ItemManager = GameObject.FindGameObjectWithTag("ItemManager").GetComponent<ItemManager>();
+        TooltipMenu = GameObject.FindGameObjectWithTag("OverworldUIManager").GetComponent<OverworldUIManager>().TooltipMenu.GetComponent<TooltipMenu>();
     }
 
-    public void InitialiseItem(Item newItem)
+    public void InitialiseItem(Item newItem, InventorySlot newSlot)
     {
         item = newItem;
+        slot = newSlot;
 
         if(ItemManager == null) //sicherstellen, das Itemmanager geladen wird -> besser machen
         {
@@ -58,36 +58,26 @@ public class InventoryItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
         transform.position = Input.mousePosition;
     }
 
-    public void OnEndDrag(PointerEventData eventData) //ÜBERPRÜFUNG OB SLOT FÜR KATEGORIE GEMACHT
+    public void OnEndDrag(PointerEventData eventData) //ÜBERPRÜFUNG OB SLOT FÜR KATEGORIE GEMACHT -< in inventoryslot
     {
         image.raycastTarget = true;
         transform.SetParent(parentAfterDrag);
     }
-    public void OnPointerClick(PointerEventData eventData)
-    {
-        if (eventData.button == PointerEventData.InputButton.Right)
-        {
-            if (ActionMenu.isFixed == false) //damit nur ein ActionMenu geöffnet werden kann
-            {
-                if (item.type == ItemType.Consumable)
-                {
-                    Consumable itemConsumable = (Consumable)item;
-                    ActionMenu.addAction(new Consume(this, itemConsumable.effectOnConsume));
-                }
-                ActionMenu.addAction(new Drop(this));
-                ActionMenu.setMenuActive(true);
-                ActionMenu.fixScreenPosition(true);
-            }
-        }
-    }
-
     public void OnPointerEnter(PointerEventData eventData)
     {
-        TooltipMenu.changeDisplayedItem(item);
+        if (item != null)
+        {
+            TooltipMenu.changeDisplayedItem(item);
+        }
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
         TooltipMenu.setActive(false);
+    }
+
+    public void OnPointerMove(PointerEventData eventData)
+    {
+        TooltipMenu.GetComponent<TooltipMenu>().Reposition();
     }
 }
