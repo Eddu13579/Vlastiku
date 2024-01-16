@@ -6,13 +6,19 @@ using UnityEngine.UI;
 public class NPC : MonoBehaviour
 {
     public bool hasShop;
+    public bool ShopisOn = false;
+    public InventorySlot[] inventorySlot;
+    public InventoryItem[] items;
     public string actionText = "Press E to talk";
+
+    public DialogLine[] dialog;
 
     [SerializeField]
     public Animator animator;
 
     [HideInInspector] public InventoryManager inventoryManager;
     [HideInInspector] public OverworldUIManager OverworldUIManager;
+    [HideInInspector] public ItemManager ItemManager;
 
     virtual public void action() { }
 
@@ -20,6 +26,7 @@ public class NPC : MonoBehaviour
     {
         inventoryManager = GameObject.FindGameObjectWithTag("InventoryManager").GetComponent<InventoryManager>();
         OverworldUIManager = GameObject.FindGameObjectWithTag("OverworldUIManager").GetComponent<OverworldUIManager>();
+        ItemManager = GameObject.FindGameObjectWithTag("ItemManager").GetComponent<ItemManager>();
     }
 
     void Update()
@@ -29,7 +36,7 @@ public class NPC : MonoBehaviour
 
     public void startDialog()
     {
-        
+        //OverworldUIManager.startDialog(dialog);
     }
 
     public void showActionText()

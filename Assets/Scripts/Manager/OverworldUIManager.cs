@@ -18,13 +18,7 @@ public class OverworldUIManager : MonoBehaviour
     Gradient healthbarFillGradient = new Gradient();
 
     [SerializeField]
-    GameObject dialogBox;
-    [SerializeField]
-    GameObject dialogText;
-    [SerializeField]
-    GameObject dialogActionButton1;
-    [SerializeField]
-    GameObject dialogActionButton2;
+    GameObject dialogBox, dialogText, dialogActionButton1, dialogActionButton2, ShopSlots;
 
     [SerializeField]
     public GameObject TooltipMenu;
@@ -32,15 +26,7 @@ public class OverworldUIManager : MonoBehaviour
     public GameObject ActionMenuCanvas;
 
     [SerializeField]
-    GameObject resumeButton;
-    [SerializeField]
-    GameObject settingsButton;
-    [SerializeField]
-    GameObject retryButton;
-    [SerializeField]
-    GameObject exitButton;
-    [SerializeField]
-    GameObject pauseFilter;
+    GameObject resumeButton, settingsButton, retryButton, exitButton, pauseFilter;
 
     [SerializeField]
     GameObject Maininventory;
@@ -165,7 +151,10 @@ public class OverworldUIManager : MonoBehaviour
 
     public void showActionText(bool isActionTextShown)
     {
-        actionText.SetActive(isActionTextShown);
+        if (actionText != null)
+        {
+            actionText.SetActive(isActionTextShown);
+        }
     }
 
     public void changeActionText(string newActionText)
