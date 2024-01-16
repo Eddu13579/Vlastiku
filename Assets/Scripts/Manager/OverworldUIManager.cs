@@ -18,7 +18,9 @@ public class OverworldUIManager : MonoBehaviour
     Gradient healthbarFillGradient = new Gradient();
 
     [SerializeField]
-    GameObject dialogBox, dialogText, dialogActionButton1, dialogActionButton2, ShopSlots;
+    GameObject dialogBox, dialogText, ShopSlots;
+    [SerializeField]
+    GameObject[] dialogActionButtons;
 
     [SerializeField]
     public GameObject TooltipMenu;
@@ -65,7 +67,12 @@ public class OverworldUIManager : MonoBehaviour
 
         actionText.SetActive(false);
 
-        TooltipMenu.SetActive(false);
+        for (int i = 0; i < dialogActionButtons.Length; i++)
+        {
+            dialogActionButtons[i].SetActive(false);
+        }
+
+            TooltipMenu.SetActive(false);
         ActionMenuCanvas.GetComponent<ActionMenu>().ActionMenuLayout.SetActive(false);
 
         healthbarHintergrund.GetComponent<Image>().sprite = null;
@@ -101,9 +108,6 @@ public class OverworldUIManager : MonoBehaviour
 
         dialogBox.SetActive(isDialogShown);
         dialogText.SetActive(isDialogShown);
-        dialogActionButton1.SetActive(isDialogShown);
-
-        //dialogActionButton2.SetActive(isDialogShown);
     }
 
     public void startDialog(DialogLine[] newDialog)
@@ -125,22 +129,19 @@ public class OverworldUIManager : MonoBehaviour
     {
         dialogText.GetComponentInChildren<TextMeshProUGUI>().text = currentDialog[currenDialogCount].text;
 
-        if (currentDialog[currenDialogCount].action1 != null)
-        {
-            dialogActionButton1.GetComponentInChildren<Button>().onClick.RemoveAllListeners();
-            dialogActionButton1.GetComponentInChildren<Button>().onClick.AddListener(currentDialog[currenDialogCount].action1.action);
-            dialogActionButton1.GetComponentInChildren<TextMeshProUGUI>().text = currentDialog[currenDialogCount].action1.dialogActionText;
-        }
+        int currentAction = 0;
 
-        if (currentDialog[currenDialogCount].action2 != null)
+        for (int i = 0; i < dialogActionButtons.Length; i++)
         {
-            dialogActionButton2.SetActive(true);
-            dialogActionButton2.GetComponentInChildren<Button>().onClick.RemoveAllListeners();
-            dialogActionButton2.GetComponentInChildren<Button>().onClick.AddListener(currentDialog[currenDialogCount].action2.action);
-            dialogActionButton2.GetComponentInChildren<TextMeshProUGUI>().text = currentDialog[currenDialogCount].action2.dialogActionText;
-        } else
-        {
-            dialogActionButton2.SetActive(false);
+            dialogActionButtons[i].SetActive(false);
+            if (currentDialog[currenDialogCount].actions[currentAction] != null)
+            {
+                dialogActionButtons[i].SetActive(true);
+                dialogActionButtons[i].GetComponentInChildren<Button>().onClick.RemoveAllListeners();
+                dialogActionButtons[i].GetComponentInChildren<Button>().onClick.AddListener(currentDialog[currenDialogCount].actions[currentAction].action);
+                dialogActionButtons[i].GetComponentInChildren<TextMeshProUGUI>().text = currentDialog[currenDialogCount].actions[currentAction].dialogActionText;
+                currentAction++;
+            }
         }
     }
 

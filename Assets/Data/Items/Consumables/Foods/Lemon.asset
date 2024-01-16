@@ -16,5 +16,4 @@ MonoBehaviour:
   descriptionText: '"Poor Lemontree"'
   stackable: 1
   type: 3
-  effectOnConsume:
-  - {fileID: 11400000, guid: 3d479429237480946b28f3765efd1f88, type: 2}
+  effectOnConsume: []

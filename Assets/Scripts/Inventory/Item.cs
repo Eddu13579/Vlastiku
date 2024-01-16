@@ -10,8 +10,6 @@ public class Item : ScriptableObject
     public Sprite image;
     public string descriptionText;
 
-    public Effect2[] effects;
-
     public bool stackable = true;
 
     public ItemType type;

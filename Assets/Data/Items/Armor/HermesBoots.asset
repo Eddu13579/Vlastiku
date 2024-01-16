@@ -18,4 +18,9 @@ MonoBehaviour:
   type: 1
   armorType: 3
   effectWhenWearing:
-  - {fileID: 11400000, guid: 13753442c9f95dd488f1be4eae74161c, type: 2}
+  - value: 4
+    isEffectGiven: 0
+    effect: 1
+    TooltipDescription: '"super fast"'
+    isShownInTooltip: 1
+    playerScript: {fileID: 0}
