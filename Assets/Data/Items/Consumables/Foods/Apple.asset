@@ -15,7 +15,7 @@ MonoBehaviour:
   image: {fileID: -523326389949524170, guid: 21dd70caa47f7d048bc4945d62e642f3, type: 3}
   descriptionText: An Apple a day keeps the doctor away
   stackable: 0
-  type: 3
+  type: 5
   effectOnConsume:
   - value: 20
     duration: 0

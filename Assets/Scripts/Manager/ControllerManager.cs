@@ -45,10 +45,6 @@ public class ControllerManager : MonoBehaviour
             {
                 playerScript.Attack();
             }
-            if (Input.GetKeyDown(KeyCode.F))
-            {
-                playerScript.changeWeapon();
-            }
             if (Input.GetKeyDown(KeyCode.G))
             {
                 if(playerScript.isAbleToPickUpItem == true)
@@ -56,7 +52,6 @@ public class ControllerManager : MonoBehaviour
                     playerScript.pickUpItem();
                 }
             }
-
             if (Input.GetKeyDown(KeyCode.Tab))
             {
                 OverworldUIManager.showInventory();

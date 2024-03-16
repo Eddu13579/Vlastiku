@@ -15,7 +15,7 @@ MonoBehaviour:
   image: {fileID: -888595130953005156, guid: 3f0c73f40e1dbe142981b7ba5ec16d97, type: 3}
   descriptionText: 
   stackable: 0
-  type: 1
+  type: 3
   armorType: 3
   effectWhenWearing:
   - value: 4

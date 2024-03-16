@@ -14,14 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   image: {fileID: -7083142980055309943, guid: 21dd70caa47f7d048bc4945d62e642f3, type: 3}
   descriptionText: Maybe this is a weapon?
-  effects:
-  - value: 20
+  stackable: 1
+  type: 5
+  effectOnConsume:
+  - value: 0
     duration: 0
-    effect: 1
-    TooltipDescription: tut weh
+    effect: 0
+    TooltipDescription: 
     isShownInTooltip: 1
     playerScript: {fileID: 0}
-  stackable: 1
-  type: 3
-  effectOnConsume:
-  - {fileID: 11400000, guid: 61787fe8e2c4bbc4f995acedbe5e4d03, type: 2}

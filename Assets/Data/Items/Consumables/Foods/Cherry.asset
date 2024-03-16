@@ -15,5 +15,5 @@ MonoBehaviour:
   image: {fileID: -6278672056855468692, guid: 21dd70caa47f7d048bc4945d62e642f3, type: 3}
   descriptionText: '"Always a pair"'
   stackable: 1
-  type: 3
+  type: 5
   effectOnConsume: []

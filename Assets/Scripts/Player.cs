@@ -32,7 +32,7 @@ public class Player : MonoBehaviour
 
     public LayerMask enemyLayer;
 
-    public Weapon currentlyHoldingWeapon;
+    public Item currentlyHoldingWeapon;
 
     public float currentHealth = 100;
     public float maximumHealth = 100;
@@ -51,11 +51,6 @@ public class Player : MonoBehaviour
     public bool isAbleToPause = true;
     public bool isAbleToPickUpItem = false;
     public bool isAbleToMove = true;
-
-    void Start()
-    {
-        currentlyHoldingWeapon = new Sword("Longsword", 20, 5f, 5f, 2f);
-    }
 
     void Update()
     {
@@ -188,17 +183,6 @@ public class Player : MonoBehaviour
             interactionObject.GetComponent<Sign>().showActionText();
         }
     }
-    public void changeWeapon()
-    {
-        if (currentlyHoldingWeapon.isSword)
-        {
-            currentlyHoldingWeapon = new Gun("Gun", 20, 5, 10f);
-        }
-        else
-        {
-            currentlyHoldingWeapon = new Sword("Longsword", 20, 5f, 5f, 2f);
-        }
-    }
 
     public void heal(int healAmount)
     {
@@ -222,7 +206,16 @@ public class Player : MonoBehaviour
 
     public void Attack()
     {
-        if (currentlyHoldingWeapon.isSword)
+        if(currentlyHoldingWeapon != null)
+        {
+            if(currentlyHoldingWeapon.type == ItemType.Gun)
+            {
+                Gun weapon = (Gun)currentlyHoldingWeapon;
+                weapon.Attack(rb.position);
+            }
+        }
+
+        /*if (currentlyHoldingWeapon.isSword)
         {
             Sword attackingWeapon = (Sword)currentlyHoldingWeapon;
             Collider2D[] hittedEnemies = Physics2D.OverlapCircleAll(rb.position, attackingWeapon.radius, enemyLayer);
@@ -236,6 +229,7 @@ public class Player : MonoBehaviour
         {
             Instantiate(bulletPrefab, rb.position, Quaternion.identity); //GameObject bullet = 
         }
+        */
     }
 
     public void GameOver()
@@ -298,19 +292,6 @@ public class Player : MonoBehaviour
         if (interactionObject.tag == "Sign")
         {
             interactionObject.GetComponent<Sign>().hideActionText();
-        }
-    }
-
-    void OnDrawGizmosSelected()
-    {
-        Gizmos.color = Color.black;
-        Gizmos.DrawLine(rb.position, rb.position + movement);
-
-        if (currentlyHoldingWeapon != null && currentlyHoldingWeapon.isSword)
-        {
-            Sword attackingWeapon = (Sword)currentlyHoldingWeapon;
-            Gizmos.color = Color.red;
-            Gizmos.DrawWireSphere(rb.position, attackingWeapon.radius);
         }
     }
 }

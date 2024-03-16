@@ -15,5 +15,5 @@ MonoBehaviour:
   image: {fileID: -7465672980022473397, guid: 21dd70caa47f7d048bc4945d62e642f3, type: 3}
   descriptionText: '"Big boss fruit"'
   stackable: 1
-  type: 3
+  type: 5
   effectOnConsume: []

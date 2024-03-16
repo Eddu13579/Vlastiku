@@ -15,4 +15,4 @@ MonoBehaviour:
   image: {fileID: -4995758615015791948, guid: ae66b84211230ce47a27e3bfcb8b85e0, type: 3}
   descriptionText: Spend it wisely
   stackable: 1
-  type: 4
+  type: 6

@@ -13,10 +13,13 @@ public class InventoryManager : MonoBehaviour
 
     int selectedSlot = -1;
 
+    Player player;
+
     private void Start()
     {
         ChangeSelectedSlot(0);
         Inventory = new InventoryItem[inventoryMaxSize];
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
     }
 
     public void ChangeSelectedSlot(int newValue)
@@ -138,6 +141,11 @@ public class InventoryManager : MonoBehaviour
                 itemToAddSword.effectWhenWearing[i].giveEffect();
             }
         }
+
+        if(itemWithEffects.type == ItemType.Gun)
+        {
+            player.currentlyHoldingWeapon = itemWithEffects;
+        }
     }
 
     public void disableItemEffects(Item itemWithEffects) //schauen wo aufgerufen
@@ -150,6 +158,10 @@ public class InventoryManager : MonoBehaviour
             {
                 itemToAddSword.effectWhenWearing[i].removeEffect();
             }
+        }
+        if (itemWithEffects.type == ItemType.Gun)
+        {
+            player.currentlyHoldingWeapon = null;
         }
     }
 

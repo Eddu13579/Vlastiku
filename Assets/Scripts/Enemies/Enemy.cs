@@ -8,7 +8,6 @@ public class Enemy : MonoBehaviour
     public float maxHealth;
     public float currentHealth;
 
-    public Weapon currentlyHoldingWeapon;
     public float strength;
 
     void Update()

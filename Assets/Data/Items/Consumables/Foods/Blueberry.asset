@@ -14,7 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   image: {fileID: -2186092658074279185, guid: 21dd70caa47f7d048bc4945d62e642f3, type: 3}
   descriptionText: '"Kinda big for a Blueberry"'
-  effects: []
   stackable: 1
-  type: 3
+  type: 5
   effectOnConsume: []

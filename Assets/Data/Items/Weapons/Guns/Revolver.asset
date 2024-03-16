@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 380658bbfe57ab142811dbc34a8422da, type: 3}
+  m_Name: Revolver
+  m_EditorClassIdentifier: 
+  image: {fileID: -1677471222069056482, guid: 691165927b816c946a1e83d2653d91ba, type: 3}
+  descriptionText: lucky luke used this...
+  stackable: 0
+  type: 0
+  cooldown: 5
+  bulletUsed: {fileID: 11400000, guid: cffa561123bb1f34da9be47d76569c62, type: 2}
